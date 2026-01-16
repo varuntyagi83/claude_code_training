@@ -1477,6 +1477,366 @@
             color: var(--text-secondary);
             font-size: 0.95rem;
         }
+
+        /* Speaker Notes Styles */
+        .speaker-notes-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1001;
+            background: var(--gradient-purple);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(124, 92, 255, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .speaker-notes-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(124, 92, 255, 0.5);
+        }
+
+        .speaker-notes-toggle.active {
+            background: var(--gradient-orange);
+            box-shadow: 0 4px 20px rgba(232, 108, 61, 0.4);
+        }
+
+        .speaker-notes {
+            display: none;
+            background: linear-gradient(135deg, rgba(124, 92, 255, 0.1) 0%, rgba(124, 92, 255, 0.05) 100%);
+            border: 2px dashed var(--secondary);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .speaker-notes.visible {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .speaker-notes::before {
+            content: '🎤 Speaker Notes';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--dark-surface);
+            padding: 0 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .speaker-notes h5 {
+            color: var(--secondary);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .speaker-notes ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .speaker-notes li {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .speaker-notes li::before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        .speaker-notes .timing {
+            display: inline-block;
+            background: var(--dark);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .speaker-notes .key-point {
+            background: rgba(232, 108, 61, 0.1);
+            border-left: 3px solid var(--primary);
+            padding: 0.75rem;
+            margin: 0.75rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .speaker-notes .key-point strong {
+            color: var(--primary);
+        }
+
+        /* Q&A Section Styles */
+        .qa-item {
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .qa-item:hover {
+            border-color: var(--primary);
+        }
+
+        .qa-question {
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .qa-question::before {
+            content: 'Q:';
+            color: var(--primary);
+            margin-right: 0.75rem;
+            font-weight: 700;
+        }
+
+        .qa-toggle {
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .qa-item.open .qa-toggle {
+            transform: rotate(45deg);
+            color: var(--primary);
+        }
+
+        .qa-answer {
+            display: none;
+            padding: 0 1.5rem 1.25rem 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            border-top: 1px solid var(--dark-border);
+            padding-top: 1.25rem;
+            margin-top: 0;
+        }
+
+        .qa-item.open .qa-answer {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .qa-answer::before {
+            content: 'A:';
+            color: var(--accent);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .qa-category {
+            margin-bottom: 2rem;
+        }
+
+        .qa-category-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Speaker Notes Styles */
+        .speaker-notes {
+            display: none;
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
+            border: 2px dashed #FFC107;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .speaker-notes.visible {
+            display: block;
+        }
+
+        .speaker-notes::before {
+            content: '🎤 SPEAKER NOTES';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--dark);
+            padding: 0 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #FFC107;
+            letter-spacing: 1px;
+        }
+
+        .speaker-notes h5 {
+            color: #FFC107;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .speaker-notes ul {
+            color: var(--text-secondary);
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .speaker-notes ul li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .speaker-notes .timing {
+            display: inline-block;
+            background: rgba(255, 193, 7, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #FFC107;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .speaker-notes .key-point {
+            background: rgba(255, 193, 7, 0.15);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .speaker-notes .key-point strong {
+            color: #FFC107;
+        }
+
+        /* Speaker Notes Toggle Button */
+        .speaker-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1001;
+            background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
+            color: #000;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 193, 7, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .speaker-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(255, 193, 7, 0.5);
+        }
+
+        .speaker-toggle.active {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Q&A Section Styles */
+        .qa-item {
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .qa-question {
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .qa-question:hover {
+            background: rgba(232, 108, 61, 0.05);
+        }
+
+        .qa-question .q-icon {
+            color: var(--primary);
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+
+        .qa-question .arrow {
+            transition: transform 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .qa-item.open .qa-question .arrow {
+            transform: rotate(180deg);
+        }
+
+        .qa-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .qa-item.open .qa-answer {
+            max-height: 500px;
+        }
+
+        .qa-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            border-top: 1px solid var(--dark-border);
+            padding-top: 1.25rem;
+        }
+
+        @media print {
+            .speaker-toggle {
+                display: none;
+            }
+            .speaker-notes {
+                display: block !important;
+                border: 2px solid #FFC107;
+                page-break-inside: avoid;
+            }
+            .nav {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1674,6 +2034,21 @@
                     <p>This course is designed for <strong>everyone</strong> — whether you're a marketer, project manager, business owner, or just curious about AI. If you can describe what you want in everyday language, you can use Claude Code!</p>
                 </div>
             </div>
+
+            <!-- Speaker Notes: About Section -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 5-7 minutes</span>
+                <h5>Opening & Introduction</h5>
+                <ul>
+                    <li><strong>Start with a story:</strong> "Last week, I had to create 50 reports. With Claude Code, it took me 10 minutes instead of 5 hours."</li>
+                    <li><strong>Acknowledge the room:</strong> "I know AI can feel intimidating. Today, we're going to make it feel like talking to a helpful colleague."</li>
+                    <li><strong>Set expectations:</strong> "By the end of today, you'll have created your first automation using just plain English."</li>
+                    <li><strong>Quick poll:</strong> "Raise your hand if you've ever wished you had a personal assistant. That's exactly what we're building today!"</li>
+                </ul>
+                <div class="key-point">
+                    <strong>Key Message:</strong> Emphasize that NO coding is required. If they can write an email, they can use Claude Code. The barrier to entry is zero.
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1686,6 +2061,21 @@
                 <p class="section-subtitle">
                     Understanding the revolutionary tool that's changing how we work with AI
                 </p>
+            </div>
+
+            <!-- Speaker Notes: Section 1 -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 10-12 minutes</span>
+                <h5>Key Teaching Points</h5>
+                <ul>
+                    <li><strong>Live Demo Opportunity:</strong> Open Claude Code and type "Create a simple to-do list and save it as a file" — show it actually creating the file!</li>
+                    <li><strong>Use the analogy:</strong> "ChatGPT is like asking a librarian for information. Claude Code is like hiring a personal assistant who goes and does the work."</li>
+                    <li><strong>Address the fear:</strong> "I know some of you are thinking 'but what if it breaks something?' Claude ALWAYS asks permission before taking action."</li>
+                    <li><strong>Real-world examples:</strong> Share 2-3 specific tasks you've automated (email sorting, report generation, file organization)</li>
+                </ul>
+                <div class="key-point">
+                    <strong>Demo Tip:</strong> Show the terminal mockup animation and explain: "This is exactly what it looks like when you use Claude Code. You type in plain English, Claude thinks, then acts."
+                </div>
             </div>
 
             <div class="two-col">
@@ -1806,6 +2196,21 @@
                 <p class="section-subtitle">
                     Meet the free app that hosts Claude Code — think of it as Claude's home base
                 </p>
+            </div>
+
+            <!-- Speaker Notes: Section 2 -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 8-10 minutes</span>
+                <h5>Key Teaching Points</h5>
+                <ul>
+                    <li><strong>Reassure immediately:</strong> "You do NOT need to learn to code! VS Code is just the container where Claude lives — like needing a phone to use apps."</li>
+                    <li><strong>Show don't tell:</strong> Open VS Code on screen, show how simple the interface is. Click around casually.</li>
+                    <li><strong>The Jargon Busters:</strong> Read these out loud! "Electron sounds scary but you'll never touch it. API is just a waiter. MCP is an adapter."</li>
+                    <li><strong>Quick hands-on:</strong> If participants have laptops, have them download VS Code during this section (it's fast).</li>
+                </ul>
+                <div class="key-point">
+                    <strong>Common Question:</strong> "Do I need VS Code, or can I use something else?" Answer: "VS Code is free and works best. The Claude Code extension is designed for it. Think of it like how certain apps only work on iPhone or Android."
+                </div>
             </div>
 
             <div class="two-col">
@@ -2081,6 +2486,21 @@
                 </p>
             </div>
 
+            <!-- Speaker Notes: Section 3 -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 12-15 minutes (with live demo)</span>
+                <h5>Key Teaching Points</h5>
+                <ul>
+                    <li><strong>LIVE DEMO is essential here!</strong> Walk through the installation step-by-step on screen. Have participants follow along if possible.</li>
+                    <li><strong>Method choice:</strong> "Most of you will prefer the Extension (visual). The Terminal is for those who like typing. Both do the same thing!"</li>
+                    <li><strong>API Key confusion:</strong> "Think of it like a Netflix password — it proves you're allowed to use the service. Keep it private!"</li>
+                    <li><strong>First success moment:</strong> Have everyone type their first request: "Hello Claude, create a simple grocery list and save it." Celebrate when it works!</li>
+                </ul>
+                <div class="key-point">
+                    <strong>Troubleshooting Tip:</strong> Common issues: (1) Forgot to sign in — click the Claude icon and authenticate. (2) Extension not showing — restart VS Code. (3) "No API key" error — check Settings → Claude Code → API Key.
+                </div>
+            </div>
+
             <!-- Prerequisites -->
             <div class="alert alert-warning">
                 <div class="alert-icon">📋</div>
@@ -2249,6 +2669,22 @@
                 </p>
             </div>
 
+            <!-- Speaker Notes: Section 4 -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 10-12 minutes</span>
+                <h5>Key Teaching Points</h5>
+                <ul>
+                    <li><strong>For n8n users:</strong> "If you already use n8n, this is a game-changer. No more drag-and-drop — just describe what you want!"</li>
+                    <li><strong>For non-n8n users:</strong> "n8n is like a robot butler. Claude Code becomes the voice that tells the butler what to do."</li>
+                    <li><strong>Show the workflow diagram:</strong> Walk through the visual "You → Claude → n8n" flow step by step.</li>
+                    <li><strong>Real example:</strong> Show the "Urgent Email Handler" example. Explain each step slowly.</li>
+                    <li><strong>Optional deep dive:</strong> If audience is advanced, do a quick live demo connecting to n8n.</li>
+                </ul>
+                <div class="key-point">
+                    <strong>Audience Check:</strong> Ask "How many of you have heard of n8n or workflow automation?" If few hands, spend more time on the analogy. If many hands, jump to the practical connection steps.
+                </div>
+            </div>
+
             <div class="two-col">
                 <div class="two-col-content">
                     <h2>What Does This Connection Do?</h2>
@@ -2385,6 +2821,22 @@ Claude: "Perfect! I'm now connected to your n8n. What would you like to automate
                 <p class="section-subtitle">
                     Building your own team of AI helpers — no coding required!
                 </p>
+            </div>
+
+            <!-- Speaker Notes: Section 5 -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 15-18 minutes (most important section!)</span>
+                <h5>Key Teaching Points</h5>
+                <ul>
+                    <li><strong>START with the restaurant analogy!</strong> This is the "aha moment" for most learners. Walk through each role slowly.</li>
+                    <li><strong>Interactive moment:</strong> Ask the audience: "If you were running a restaurant, would you want ONE person doing everything, or specialists?" Build the concept together.</li>
+                    <li><strong>Live creation:</strong> If time permits, create a simple agent team live: "Let's build a team that handles our to-do list right now."</li>
+                    <li><strong>The "no code" emphasis:</strong> Show the prompt boxes. "Notice there's no code here — we're just having a conversation with Claude!"</li>
+                    <li><strong>Tool comparison:</strong> Briefly mention CrewAI, Flowise, etc. but emphasize: "Claude Code is the easiest starting point."</li>
+                </ul>
+                <div class="key-point">
+                    <strong>This is the WOW moment:</strong> When you show them creating agents by just typing "Create a Task Creator helper...", pause and let it sink in. This is where non-technical people realize the power of AI.
+                </div>
             </div>
 
             <!-- Restaurant Analogy -->
@@ -2726,6 +3178,21 @@ Link: [clickup link]"</div>
                 </p>
             </div>
 
+            <!-- Speaker Notes: Section 6 -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 8-10 minutes</span>
+                <h5>Key Teaching Points</h5>
+                <ul>
+                    <li><strong>Pick your top 3-4:</strong> Don't try to cover all 10 in detail. Recommend: #1 (CLAUDE.md), #2 (Explain First), #3 (Screenshot), and #10 (Role-Based).</li>
+                    <li><strong>Demo the CLAUDE.md file:</strong> Create one live! "Watch this — I'll create a file that makes Claude always greet me by name."</li>
+                    <li><strong>The "Explain First" trick is GOLD:</strong> This single tip will save them hours. "Before Claude does anything big, ask it to explain its plan first!"</li>
+                    <li><strong>Screenshot demo:</strong> If possible, paste a screenshot of a simple UI and have Claude describe it. Mind = blown.</li>
+                </ul>
+                <div class="key-point">
+                    <strong>Audience Engagement:</strong> Ask "Which of these tips are you most excited to try?" Get 2-3 answers. This helps with retention and shows you value their input.
+                </div>
+            </div>
+
             <div class="sauce-grid">
                 <div class="sauce-card">
                     <div class="sauce-number">01</div>
@@ -2817,6 +3284,21 @@ Link: [clickup link]"</div>
                 <p class="section-subtitle">
                     A practical guide to knowing when Claude Code is your best friend
                 </p>
+            </div>
+
+            <!-- Speaker Notes: Section 7 -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 5-7 minutes</span>
+                <h5>Key Teaching Points</h5>
+                <ul>
+                    <li><strong>The decision matrix:</strong> Walk through each row. Ask "Does anyone have tasks like this?" Get real examples from the audience.</li>
+                    <li><strong>Important boundaries:</strong> Emphasize the ⚠️ and ❌ items. "AI is powerful but not a replacement for professional advice or human judgment."</li>
+                    <li><strong>The 80/20 rule:</strong> This is the key takeaway. "Let Claude do the boring 80% so you can focus on the creative 20%."</li>
+                    <li><strong>Data privacy reminder:</strong> "Always check your company's AI policy before using Claude with sensitive data."</li>
+                </ul>
+                <div class="key-point">
+                    <strong>Real Talk Moment:</strong> "I want to be honest with you — AI makes mistakes. Always review important outputs. Think of Claude as a very fast first draft, not a final answer."
+                </div>
             </div>
 
             <div class="decision-matrix">
@@ -2912,6 +3394,323 @@ Link: [clickup link]"</div>
                     <h4>The 80/20 Rule</h4>
                     <p>Let Claude handle the 80% of routine, repetitive work so you can focus your brain power on the 20% that truly needs human creativity, judgment, and decision-making. That's the sweet spot!</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Q&A Section -->
+    <section id="qa" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-number">❓</div>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">
+                    Common questions from non-technical learners — answered in plain English!
+                </p>
+            </div>
+
+            <!-- Speaker Notes: Q&A Section -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 10-15 minutes</span>
+                <h5>Handling Q&A</h5>
+                <ul>
+                    <li><strong>Read the room:</strong> If the audience looks tired, cover top 5 questions. If engaged, open floor for live questions.</li>
+                    <li><strong>Encourage questions:</strong> "There are no silly questions! If you're wondering something, probably 5 other people are too."</li>
+                    <li><strong>Live demo opportunity:</strong> If someone asks "Can Claude do X?", try it live! "Let's find out together!"</li>
+                    <li><strong>Save complex questions:</strong> "That's a great advanced question — let's chat after the session so we can dive deeper."</li>
+                </ul>
+                <div class="key-point">
+                    <strong>Pro Tip:</strong> Have a "parking lot" — a place to note questions you'll follow up on later via email or Slack.
+                </div>
+            </div>
+
+            <!-- Q&A Items -->
+            <div style="max-width: 900px; margin: 0 auto;">
+                
+                <!-- Basic Questions -->
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem; margin-top: 2rem;">🌱 Getting Started Questions</h3>
+                
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> Do I need to know how to code to use Claude Code?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            <strong>Absolutely not!</strong> Despite having "Code" in the name, Claude Code is designed to understand plain English. You communicate with it exactly like you would with a helpful colleague. Say "Create a to-do list" or "Organize my files by date" — Claude understands and executes. The name "Code" refers to what Claude can do behind the scenes, not what you need to know!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> Is Claude Code free to use?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            Claude Code requires either a <strong>Claude Pro/Max subscription</strong> ($20-$100/month) or an <strong>Anthropic API key</strong> (pay-per-use, typically a few cents per task). VS Code itself is completely free. For beginners, the Pro subscription is the easiest — you sign up, install the extension, and you're ready to go. The API option is better for heavy users or businesses.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> What's the difference between Claude Code and regular ChatGPT?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            <strong>ChatGPT talks. Claude Code acts.</strong><br><br>
+                            ChatGPT gives you advice, explanations, and suggestions — but you still have to do the work yourself.<br><br>
+                            Claude Code can actually <em>do things</em> on your computer: create files, organize folders, run programs, connect to other apps, and automate repetitive tasks. It's like the difference between asking a friend for directions versus having a driver take you there.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> Can Claude Code access my files and data?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            Yes, but <strong>only what you give it access to</strong>. When you open a folder in VS Code, Claude can see and work with files in that folder. It cannot access other parts of your computer unless you explicitly open them. And here's the important part: <strong>Claude always asks permission</strong> before making changes. You'll see a preview of what it wants to do, and you click "Accept" or "Reject." Nothing happens without your approval.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Safety & Privacy Questions -->
+                <h3 style="color: var(--secondary); margin-bottom: 1.5rem; margin-top: 3rem;">🔒 Safety & Privacy Questions</h3>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> What if Claude makes a mistake or breaks something?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            Great question — this is a common concern! Here's why it's safer than you think:<br><br>
+                            1. <strong>Approval required:</strong> Claude shows you what it plans to do BEFORE doing it. You review and approve each action.<br>
+                            2. <strong>Undo is possible:</strong> Most changes can be reversed. If Claude creates a file you don't want, just delete it.<br>
+                            3. <strong>Start small:</strong> Practice with non-critical tasks first. Create to-do lists, organize test files, draft emails.<br>
+                            4. <strong>Backups:</strong> For important work, always have backups. This is good practice regardless of AI!<br><br>
+                            Remember: Claude is a tool. Like any tool, start with simple tasks and build confidence.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> Is my data sent to the cloud? Is it private?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            Yes, your requests are sent to Anthropic's servers (the company that makes Claude) to process. This is how the AI "thinks."<br><br>
+                            <strong>Privacy considerations:</strong><br>
+                            • Anthropic has privacy policies about not training on your data (check their current policy)<br>
+                            • Don't share sensitive data like passwords, credit card numbers, or confidential business information<br>
+                            • Check your company's AI policy before using with work data<br>
+                            • For highly sensitive work, consider enterprise versions with additional privacy guarantees<br><br>
+                            <strong>Rule of thumb:</strong> Don't share anything with Claude that you wouldn't put in an email.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> Can I use Claude Code at work? What about company policies?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            <strong>Always check with your IT department or manager first!</strong><br><br>
+                            Many companies now have AI usage policies. Some things to consider:<br>
+                            • Does your company allow AI tools?<br>
+                            • Are there restrictions on what data can be processed by AI?<br>
+                            • Does your company have an enterprise AI agreement?<br><br>
+                            <strong>Safe approaches:</strong><br>
+                            • Use Claude for non-sensitive tasks (drafting public content, learning, personal productivity)<br>
+                            • Anonymize data before sharing (remove names, account numbers, etc.)<br>
+                            • Ask your company about approved AI tools
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical Usage Questions -->
+                <h3 style="color: var(--accent); margin-bottom: 1.5rem; margin-top: 3rem;">💡 Practical Usage Questions</h3>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> What are the best tasks to start with as a beginner?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            Start with these low-risk, high-reward tasks:<br><br>
+                            <strong>Week 1 - Baby Steps:</strong><br>
+                            • "Create a to-do list for my week and save it as a file"<br>
+                            • "Draft a professional email to [describe situation]"<br>
+                            • "Explain what files are in this folder"<br><br>
+                            <strong>Week 2 - Getting Comfortable:</strong><br>
+                            • "Rename all files in this folder to include today's date"<br>
+                            • "Create a summary of this document"<br>
+                            • "Help me organize these notes by topic"<br><br>
+                            <strong>Week 3 - Building Confidence:</strong><br>
+                            • "Create a weekly report template"<br>
+                            • "Find all mentions of [topic] across my documents"<br>
+                            • "Set up a simple automation for [repetitive task]"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> How do I write good prompts/requests for Claude?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            The magic formula: <strong>What + Details + Context</strong><br><br>
+                            <strong>❌ Vague:</strong> "Write an email"<br>
+                            <strong>✅ Better:</strong> "Write a professional but friendly email to my client John, apologizing for the project delay and proposing a new deadline of next Friday"<br><br>
+                            <strong>Tips for better results:</strong><br>
+                            • Be specific about what you want<br>
+                            • Include relevant context (who, what, why)<br>
+                            • Specify the tone (formal, casual, friendly)<br>
+                            • Mention the format if it matters (bullet points, paragraphs, table)<br>
+                            • If the first result isn't perfect, refine: "Make it shorter" or "Add more detail about X"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> Can Claude Code work with Excel/Google Sheets/Word documents?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            <strong>Yes, with some nuances:</strong><br><br>
+                            <strong>Works well:</strong><br>
+                            • Reading and analyzing CSV files (spreadsheet data)<br>
+                            • Creating new documents in various formats<br>
+                            • Processing text files, markdown, JSON<br>
+                            • Generating reports that can be opened in Word/Excel<br><br>
+                            <strong>Limitations:</strong><br>
+                            • Complex Excel formulas or macros may need manual review<br>
+                            • Direct editing of .xlsx files requires specific approaches<br>
+                            • Google Docs requires API connection (more advanced)<br><br>
+                            <strong>Pro tip:</strong> Export spreadsheets as CSV for easiest processing, then import results back.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> How is this different from Microsoft Copilot or Google's AI?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            Each AI tool has its strengths:<br><br>
+                            <strong>Claude Code:</strong><br>
+                            • Best for: Autonomous task execution, multi-step workflows, connecting tools<br>
+                            • Works across: Any file type, any application via MCP<br>
+                            • Unique: Actually does work for you, not just suggests<br><br>
+                            <strong>Microsoft Copilot:</strong><br>
+                            • Best for: Deep integration with Microsoft 365 (Word, Excel, Teams)<br>
+                            • Works in: Microsoft ecosystem<br><br>
+                            <strong>Google AI:</strong><br>
+                            • Best for: Search, Gmail, Google Workspace<br>
+                            • Works in: Google ecosystem<br><br>
+                            <strong>Bottom line:</strong> Claude Code is more "agentic" — it takes actions rather than just providing suggestions. It's also more flexible across different tools and platforms.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical-ish Questions -->
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem; margin-top: 3rem;">🔧 Slightly Technical Questions</h3>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> What is MCP and do I need to understand it?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            <strong>MCP = Model Context Protocol</strong><br><br>
+                            Think of it as a <strong>universal translator</strong> that lets Claude "talk" to other apps like ClickUp, Slack, databases, and n8n.<br><br>
+                            <strong>Do you need to understand it?</strong> Not really! It's like knowing your phone uses Bluetooth to connect to your headphones — useful to know it exists, but you don't need to understand how Bluetooth works to use your headphones.<br><br>
+                            <strong>When it matters:</strong> If you want Claude to connect to specific tools (like your task manager or CRM), you might need to set up an MCP connection. The good news: Claude can often help you do this!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> What happens when I close VS Code? Does Claude remember our conversation?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            <strong>Short answer:</strong> Sessions can be saved and resumed!<br><br>
+                            <strong>How it works:</strong><br>
+                            • Each conversation is a "session"<br>
+                            • Use <code>claude --continue</code> to resume your last session<br>
+                            • Use <code>claude history</code> to see past sessions<br>
+                            • The CLAUDE.md file persists your preferences across all sessions<br><br>
+                            <strong>What Claude "remembers":</strong><br>
+                            • Within a session: Everything you discussed<br>
+                            • Across sessions: Only what's in CLAUDE.md<br>
+                            • Pro tip: Put important context in CLAUDE.md for persistence
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> Can Claude Code work offline?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            <strong>No, internet connection is required.</strong><br><br>
+                            Claude's AI "brain" lives on Anthropic's servers. When you type a request, it's sent to those servers, processed, and the response comes back. This is why you need an internet connection.<br><br>
+                            <strong>Why not offline?</strong><br>
+                            The AI model is too large to run on most personal computers (it would need specialized hardware). Cloud processing makes it accessible to everyone without needing a supercomputer at home.<br><br>
+                            <strong>Low bandwidth?</strong> Claude works fine on moderate connections. Video calls use more bandwidth than Claude!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-question" onclick="toggleQA(this)">
+                        <span><span class="q-icon">Q:</span> I'm getting errors. What should I check?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="qa-answer">
+                        <div class="qa-answer-content">
+                            <strong>Common issues and fixes:</strong><br><br>
+                            <strong>1. "Not authenticated" or "No API key"</strong><br>
+                            → Click the Claude icon and sign in again<br>
+                            → Check Settings → Claude Code → API Key<br><br>
+                            <strong>2. Extension not appearing</strong><br>
+                            → Restart VS Code<br>
+                            → Check if extension is enabled (Extensions → Claude Code → Enable)<br><br>
+                            <strong>3. "Rate limit exceeded"</strong><br>
+                            → You've used too many requests too quickly<br>
+                            → Wait a few minutes and try again<br>
+                            → Consider upgrading your plan for higher limits<br><br>
+                            <strong>4. Claude seems confused</strong><br>
+                            → Start a new session: type /clear<br>
+                            → Rephrase your request more simply<br>
+                            → Break complex tasks into smaller steps
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -3194,7 +3993,41 @@ Link: [clickup link]"</div>
         </div>
     </footer>
 
+    <!-- Speaker Notes Toggle Button -->
+    <button class="speaker-toggle" onclick="toggleSpeakerNotes()" id="speakerToggle">
+        🎤 Speaker Notes
+    </button>
+
     <script>
+        // Speaker Notes Toggle
+        function toggleSpeakerNotes() {
+            const notes = document.querySelectorAll('.speaker-notes');
+            const btn = document.getElementById('speakerToggle');
+            const isActive = btn.classList.contains('active');
+            
+            notes.forEach(note => {
+                if (isActive) {
+                    note.classList.remove('visible');
+                } else {
+                    note.classList.add('visible');
+                }
+            });
+            
+            if (isActive) {
+                btn.classList.remove('active');
+                btn.innerHTML = '🎤 Speaker Notes';
+            } else {
+                btn.classList.add('active');
+                btn.innerHTML = '✅ Notes Visible';
+            }
+        }
+
+        // Q&A Accordion
+        function toggleQA(element) {
+            const item = element.parentElement;
+            item.classList.toggle('open');
+        }
+
         function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
