@@ -1,0 +1,2873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Masterclass | Complete Guide to Agentic Coding</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #E86C3D;
+            --primary-dark: #CC5A2F;
+            --secondary: #7C5CFF;
+            --accent: #00D4AA;
+            --dark: #0D0D12;
+            --dark-surface: #16161D;
+            --dark-elevated: #1E1E28;
+            --dark-border: #2A2A38;
+            --text-primary: #F5F5F7;
+            --text-secondary: #9999A5;
+            --text-muted: #66667A;
+            --gradient-orange: linear-gradient(135deg, #E86C3D 0%, #FF8F5C 100%);
+            --gradient-purple: linear-gradient(135deg, #7C5CFF 0%, #A78BFF 100%);
+            --gradient-green: linear-gradient(135deg, #00D4AA 0%, #00F5C4 100%);
+            --gradient-mesh: radial-gradient(ellipse at 20% 20%, rgba(124, 92, 255, 0.15) 0%, transparent 50%),
+                            radial-gradient(ellipse at 80% 80%, rgba(232, 108, 61, 0.15) 0%, transparent 50%),
+                            radial-gradient(ellipse at 50% 50%, rgba(0, 212, 170, 0.08) 0%, transparent 50%);
+            --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-glow-orange: 0 0 40px rgba(232, 108, 61, 0.3);
+            --shadow-glow-purple: 0 0 40px rgba(124, 92, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--dark-border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(13, 13, 18, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+            padding: 1rem 2rem;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-orange);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            background: var(--gradient-mesh);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-orange);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-orange);
+            color: white;
+            box-shadow: var(--shadow-glow-orange);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 60px rgba(232, 108, 61, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--dark-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--dark-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--dark-border);
+            transform: translateY(-3px);
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .section-dark {
+            background: var(--dark-surface);
+        }
+
+        .section-gradient {
+            background: var(--gradient-mesh);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-orange);
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-orange);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-orange);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon.purple {
+            background: var(--gradient-purple);
+        }
+
+        .card-icon.green {
+            background: var(--gradient-green);
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .code-block {
+            background: var(--dark);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background: var(--dark-elevated);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background: #FF5F57; }
+        .code-dot.yellow { background: #FFBD2E; }
+        .code-dot.green { background: #28CA41; }
+
+        .code-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .code-content {
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .code-comment { color: var(--text-muted); }
+        .code-keyword { color: var(--secondary); }
+        .code-string { color: var(--accent); }
+        .code-function { color: var(--primary); }
+        .code-variable { color: #E8BE6A; }
+        .code-operator { color: var(--text-secondary); }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            border-color: var(--primary);
+            transform: translateX(8px);
+        }
+
+        .feature-check {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-green);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .feature-content h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .two-col-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .two-col-content p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .vscode-mockup {
+            background: #1E1E1E;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--dark-border);
+        }
+
+        .vscode-titlebar {
+            background: #323233;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .vscode-body {
+            display: flex;
+            min-height: 350px;
+        }
+
+        .vscode-sidebar {
+            width: 50px;
+            background: #252526;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.75rem 0;
+            gap: 1rem;
+        }
+
+        .vscode-sidebar-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #858585;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+
+        .vscode-sidebar-icon.active {
+            color: white;
+            border-left: 2px solid var(--primary);
+            margin-left: -2px;
+        }
+
+        .vscode-explorer {
+            width: 220px;
+            background: #252526;
+            border-right: 1px solid #3C3C3C;
+            padding: 0.5rem 0;
+        }
+
+        .vscode-explorer-header {
+            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+            color: #BBBBBB;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .vscode-file {
+            padding: 0.25rem 1rem 0.25rem 2rem;
+            font-size: 0.85rem;
+            color: #CCCCCC;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .vscode-file-icon {
+            font-size: 0.9rem;
+        }
+
+        .vscode-editor {
+            flex: 1;
+            background: #1E1E1E;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            overflow: hidden;
+        }
+
+        .vscode-line {
+            display: flex;
+        }
+
+        .vscode-line-number {
+            width: 40px;
+            text-align: right;
+            padding-right: 1rem;
+            color: #6E7681;
+            user-select: none;
+        }
+
+        .terminal-mockup {
+            background: #0D1117;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--dark-border);
+        }
+
+        .terminal-header {
+            background: #161B22;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .terminal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            min-height: 300px;
+        }
+
+        .terminal-prompt {
+            color: var(--accent);
+        }
+
+        .terminal-command {
+            color: var(--text-primary);
+        }
+
+        .terminal-output {
+            color: var(--text-secondary);
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--accent);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Analogy Box - New Style */
+        .analogy-box {
+            background: linear-gradient(135deg, rgba(124, 92, 255, 0.1) 0%, rgba(232, 108, 61, 0.1) 100%);
+            border: 2px solid var(--secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .analogy-box::before {
+            content: '💡';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 1.5rem;
+            background: var(--dark-surface);
+            padding: 0 0.5rem;
+        }
+
+        .analogy-box h4 {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .analogy-box p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Plain Language Prompt Box */
+        .prompt-box {
+            background: var(--dark);
+            border: 2px dashed var(--primary);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .prompt-box-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .prompt-box-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--accent);
+            background: var(--dark-elevated);
+            padding: 1rem;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+
+        .prompt-box-note {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Jargon Buster */
+        .jargon-buster {
+            background: var(--dark-elevated);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .jargon-buster h5 {
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .jargon-buster .term {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .jargon-buster p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .jargon-buster .simple {
+            color: var(--primary);
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        /* Architecture Visual */
+        .architecture {
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .arch-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .arch-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .arch-node {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .arch-main {
+            background: var(--gradient-orange);
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .arch-connector {
+            width: 2px;
+            height: 30px;
+            background: var(--dark-border);
+            position: relative;
+        }
+
+        .arch-connector::after {
+            content: '▼';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+
+        .arch-subagents {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .arch-sub {
+            background: var(--gradient-purple);
+            color: white;
+        }
+
+        .arch-tasks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .arch-task {
+            background: var(--dark);
+            border: 1px solid var(--dark-border);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Restaurant Analogy Visual */
+        .restaurant-visual {
+            background: linear-gradient(135deg, var(--dark-elevated) 0%, var(--dark) 100%);
+            border: 1px solid var(--dark-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .restaurant-role {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--dark-elevated);
+            border-radius: 16px;
+            border: 1px solid var(--dark-border);
+        }
+
+        .restaurant-role .emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .restaurant-role h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .restaurant-role .ai-equiv {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .restaurant-role p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Secret Sauce Section */
+        .sauce-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .sauce-card {
+            background: linear-gradient(135deg, var(--dark-elevated) 0%, var(--dark-surface) 100%);
+            border: 1px solid var(--dark-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sauce-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(232, 108, 61, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .sauce-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--dark-border);
+            line-height: 1;
+        }
+
+        .sauce-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sauce-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .sauce-card p {
+            color: var(--text-secondary);
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--dark-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            margin-left: 1px;
+        }
+
+        .timeline-content {
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .decision-matrix {
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .decision-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: var(--dark);
+            font-weight: 600;
+        }
+
+        .decision-cell {
+            padding: 1.25rem;
+            text-align: center;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .decision-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .decision-row:hover {
+            background: rgba(232, 108, 61, 0.05);
+        }
+
+        .decision-row .decision-cell:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .decision-yes {
+            color: var(--accent);
+        }
+
+        .decision-no {
+            color: #FF6B6B;
+        }
+
+        .decision-maybe {
+            color: #FFD93D;
+        }
+
+        .tabs {
+            margin: 2rem 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-orange);
+            border-color: transparent;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--dark-elevated);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--dark-border);
+        }
+
+        .comparison-table th {
+            background: var(--dark);
+            padding: 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .comparison-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(232, 108, 61, 0.03);
+        }
+
+        .alert {
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .alert-info {
+            background: rgba(124, 92, 255, 0.1);
+            border: 1px solid rgba(124, 92, 255, 0.3);
+        }
+
+        .alert-warning {
+            background: rgba(232, 108, 61, 0.1);
+            border: 1px solid rgba(232, 108, 61, 0.3);
+        }
+
+        .alert-success {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .alert-content h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .alert-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .steps {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .step::after {
+            content: '→';
+            position: absolute;
+            right: -1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.5rem;
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .step h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .footer {
+            background: var(--dark-surface);
+            border-top: 1px solid var(--dark-border);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-orange);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+        }
+
+        .footer p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .footer-credits {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .workflow-diagram {
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 2rem;
+            overflow-x: auto;
+        }
+
+        .workflow-flow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: max-content;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .workflow-node {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .workflow-trigger {
+            background: var(--gradient-green);
+            color: white;
+        }
+
+        .workflow-action {
+            background: var(--gradient-purple);
+            color: white;
+        }
+
+        .workflow-output {
+            background: var(--gradient-orange);
+            color: white;
+        }
+
+        .workflow-arrow {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+        }
+
+        .kbd {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: var(--dark);
+            border: 1px solid var(--dark-border);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 0 var(--dark-border);
+        }
+
+        .subsection {
+            margin: 4rem 0;
+        }
+
+        .subsection-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .subsection-title::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background: var(--gradient-orange);
+            border-radius: 2px;
+        }
+
+        .subsection-desc {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        /* Tool options grid */
+        .tool-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tool-option {
+            background: var(--dark-elevated);
+            border: 2px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tool-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .tool-option .tool-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-option h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-option .difficulty {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .tool-option .difficulty.easy {
+            background: rgba(0, 212, 170, 0.2);
+            color: var(--accent);
+        }
+
+        .tool-option .difficulty.medium {
+            background: rgba(232, 108, 61, 0.2);
+            color: var(--primary);
+        }
+
+        .tool-option .difficulty.advanced {
+            background: rgba(124, 92, 255, 0.2);
+            color: var(--secondary);
+        }
+
+        .tool-option p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sauce-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .decision-header,
+            .decision-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .decision-cell {
+                text-align: left !important;
+            }
+            
+            .step::after {
+                display: none;
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glossary-item {
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .glossary-term {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .glossary-def {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <div class="nav-logo-icon">CC</div>
+                <span>Claude Code Masterclass</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#vscode">VS Code</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#n8n">n8n Integration</a></li>
+                <li><a href="#agents">Agents</a></li>
+                <li><a href="#secrets">Secret Sauce</a></li>
+                <li><a href="#when">When to Use</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                AI Catalyst | Complete Course
+            </div>
+            <h1>Master <span class="highlight">Claude Code</span><br>The Agentic Coding Revolution</h1>
+            <p class="hero-subtitle">
+                From zero to hero: Learn to harness the power of Claude Code for autonomous development, 
+                workflow automation, and building intelligent helpers — no coding required!
+            </p>
+            <div class="hero-cta">
+                <a href="#intro" class="btn btn-primary">
+                    🚀 Start Learning
+                </a>
+                <a href="#secrets" class="btn btn-secondary">
+                    ✨ Jump to Secret Sauce
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Introduction -->
+    <section id="intro" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2 class="section-title">What is Claude Code?</h2>
+                <p class="section-subtitle">
+                    Understanding the revolutionary tool that's changing how we work with AI
+                </p>
+            </div>
+
+            <div class="two-col">
+                <div class="two-col-content">
+                    <h2>Your AI Assistant That Can Actually DO Things</h2>
+                    <p>
+                        Claude Code is like having a super-smart assistant who doesn't just give you answers — they can actually 
+                        complete tasks for you. Instead of just chatting, Claude Code can create files, run programs, search through 
+                        documents, and automate repetitive work.
+                    </p>
+                    
+                    <div class="analogy-box">
+                        <h4>Think of it like this...</h4>
+                        <p>
+                            Regular AI (like ChatGPT) is like asking a friend for advice — they tell you what to do, but you still have to do it yourself.<br><br>
+                            <strong>Claude Code</strong> is like having a personal assistant who not only tells you what to do but actually does it for you. 
+                            "Create a report" → The report appears. "Organize these files" → Done automatically.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-content">
+                                <h4>Creates & Edits Files</h4>
+                                <p>Makes documents, spreadsheets, and any file type directly</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-content">
+                                <h4>Runs Commands</h4>
+                                <p>Executes tasks on your computer automatically</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-content">
+                                <h4>Searches & Analyzes</h4>
+                                <p>Finds information across all your project files</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-check">✓</div>
+                            <div class="feature-content">
+                                <h4>Multi-Step Automation</h4>
+                                <p>Completes complex tasks from start to finish</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="terminal-mockup">
+                    <div class="terminal-header">
+                        <div class="code-dots">
+                            <div class="code-dot red"></div>
+                            <div class="code-dot yellow"></div>
+                            <div class="code-dot green"></div>
+                        </div>
+                        <span class="terminal-title">Terminal — claude</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div><span class="terminal-prompt">You:</span> <span class="terminal-command">Create a summary of all my meeting notes from last week</span></div>
+                        <br>
+                        <div class="terminal-output">🔍 Searching for meeting notes...</div>
+                        <div class="terminal-output">📄 Found 5 documents</div>
+                        <div class="terminal-output">📝 Creating summary...</div>
+                        <div class="terminal-output">✅ Summary saved to "Weekly_Summary.docx"</div>
+                        <br>
+                        <div><span class="terminal-prompt">You:</span> <span class="terminal-command">Now email it to my team</span></div>
+                        <br>
+                        <div class="terminal-output">📧 Composing email...</div>
+                        <div class="terminal-output">✅ Email draft ready for review!</div>
+                        <br>
+                        <div><span class="terminal-prompt">You:</span> <span class="terminal-cursor"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Why Use Claude Code?</h3>
+                <p class="subsection-desc">
+                    Claude Code transforms how you interact with AI — from conversation to action:
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">⚡</div>
+                        <h3>Save Hours of Work</h3>
+                        <p>Automate repetitive tasks like data entry, file organization, report generation, and more. What took hours now takes minutes.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon purple">🗣️</div>
+                        <h3>Just Speak Naturally</h3>
+                        <p>No special commands to learn. Just describe what you want in plain English: "Create a presentation about Q4 sales" — done!</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon green">🔗</div>
+                        <h3>Connects Everything</h3>
+                        <p>Links to your tools: ClickUp, n8n, databases, and more. Claude becomes the bridge between all your apps.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🛡️</div>
+                        <h3>You Stay in Control</h3>
+                        <p>Claude always asks before making changes. You review and approve every action — nothing happens without your OK.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Visual Studio Code -->
+    <section id="vscode" class="section section-gradient">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Visual Studio Code Foundation</h2>
+                <p class="section-subtitle">
+                    Meet the free app that hosts Claude Code — think of it as Claude's home base
+                </p>
+            </div>
+
+            <div class="two-col">
+                <div class="two-col-content">
+                    <h2>What is Visual Studio Code?</h2>
+                    <p>
+                        Visual Studio Code (VS Code) is a free application from Microsoft that people use to write and edit text files. 
+                        While developers use it for coding, <strong>you can use it simply as the "home" where Claude Code lives</strong>.
+                    </p>
+                    
+                    <div class="analogy-box">
+                        <h4>Think of it like this...</h4>
+                        <p>
+                            VS Code is like a <strong>Swiss Army Knife for your computer</strong>. By itself, it's a simple text editor. 
+                            But you can add "tools" (called extensions) to make it do almost anything — including running Claude Code!<br><br>
+                            It's also like your phone's home screen: the apps (extensions) make it useful, and Claude Code is just one powerful app you're adding.
+                        </p>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <div class="alert-icon">📊</div>
+                        <div class="alert-content">
+                            <h4>Why VS Code?</h4>
+                            <p>Over 74% of developers worldwide use VS Code. It's free, works on any computer (Windows, Mac, Linux), and is incredibly reliable.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vscode-mockup">
+                    <div class="vscode-titlebar">
+                        <div class="code-dots">
+                            <div class="code-dot red"></div>
+                            <div class="code-dot yellow"></div>
+                            <div class="code-dot green"></div>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #CCCCCC;">My Project - Visual Studio Code</span>
+                    </div>
+                    <div class="vscode-body">
+                        <div class="vscode-sidebar">
+                            <div class="vscode-sidebar-icon active">📄</div>
+                            <div class="vscode-sidebar-icon">🔍</div>
+                            <div class="vscode-sidebar-icon">🔀</div>
+                            <div class="vscode-sidebar-icon">🤖</div>
+                            <div class="vscode-sidebar-icon">🧩</div>
+                        </div>
+                        <div class="vscode-explorer">
+                            <div class="vscode-explorer-header">Your Files</div>
+                            <div class="vscode-file"><span class="vscode-file-icon">📁</span> Documents</div>
+                            <div class="vscode-file" style="padding-left: 3rem;"><span class="vscode-file-icon">📄</span> Report.docx</div>
+                            <div class="vscode-file" style="padding-left: 3rem;"><span class="vscode-file-icon">📄</span> Notes.txt</div>
+                            <div class="vscode-file"><span class="vscode-file-icon">📁</span> Images</div>
+                            <div class="vscode-file"><span class="vscode-file-icon">📄</span> README.md</div>
+                        </div>
+                        <div class="vscode-editor" style="display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🤖</div>
+                                <div>Claude Code panel appears here!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jargon Busters -->
+            <div class="subsection">
+                <h3 class="subsection-title">Jargon Buster: Technical Terms Explained</h3>
+                <p class="subsection-desc">
+                    Let's demystify some terms you might encounter:
+                </p>
+
+                <div class="card-grid">
+                    <div class="jargon-buster">
+                        <h5>🔤 Jargon Buster</h5>
+                        <div class="term">Electron</div>
+                        <p>This is the technology VS Code is built with. It allows developers to create desktop apps using web technologies.</p>
+                        <div class="simple">👉 Simple version: Electron is just the "recipe" used to make VS Code. You'll never interact with it directly — it's like knowing your car has an engine without needing to understand how engines work.</div>
+                    </div>
+
+                    <div class="jargon-buster">
+                        <h5>🔤 Jargon Buster</h5>
+                        <div class="term">Extension</div>
+                        <p>A small add-on that gives VS Code new powers, like installing an app on your phone.</p>
+                        <div class="simple">👉 Simple version: Extensions are like phone apps. Claude Code is an extension you "install" to add AI powers to VS Code.</div>
+                    </div>
+
+                    <div class="jargon-buster">
+                        <h5>🔤 Jargon Buster</h5>
+                        <div class="term">Terminal / CLI</div>
+                        <p>A text-based way to give commands to your computer. Instead of clicking, you type instructions.</p>
+                        <div class="simple">👉 Simple version: It's like texting your computer instead of pointing and clicking. You type "claude" and press Enter to start Claude Code.</div>
+                    </div>
+
+                    <div class="jargon-buster">
+                        <h5>🔤 Jargon Buster</h5>
+                        <div class="term">MCP (Model Context Protocol)</div>
+                        <p>A system that lets Claude Code connect to other apps and services.</p>
+                        <div class="simple">👉 Simple version: MCP is like a universal adapter/translator that lets Claude "talk" to other apps like ClickUp, n8n, or databases.</div>
+                    </div>
+
+                    <div class="jargon-buster">
+                        <h5>🔤 Jargon Buster</h5>
+                        <div class="term">API (Application Programming Interface)</div>
+                        <p>A way for different software programs to communicate with each other.</p>
+                        <div class="simple">👉 Simple version: An API is like a waiter in a restaurant — it takes your order (request), brings it to the kitchen (another app), and returns with your food (the response).</div>
+                    </div>
+
+                    <div class="jargon-buster">
+                        <h5>🔤 Jargon Buster</h5>
+                        <div class="term">LSP (Language Server Protocol)</div>
+                        <p>Technology that gives VS Code smart features like auto-complete and error detection.</p>
+                        <div class="simple">👉 Simple version: LSP is what makes VS Code "smart" — it's why the app can suggest words as you type, like your phone's keyboard does.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VS Code Secret Sauce -->
+            <div class="subsection">
+                <h3 class="subsection-title">The Secret Sauce of VS Code</h3>
+                <p class="subsection-desc">
+                    What makes VS Code special compared to other text editors:
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🧩</div>
+                        <h3>50,000+ Extensions</h3>
+                        <p>Like an app store for your editor. Whatever you need — there's probably an extension for it. Claude Code is just one of thousands!</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon purple">🎨</div>
+                        <h3>Completely Customizable</h3>
+                        <p>Change colors, themes, fonts, and layout. Make it look exactly how you want — dark mode, light mode, or anything in between.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon green">🖥️</div>
+                        <h3>Built-in Terminal</h3>
+                        <p>Run commands without leaving the app. This is where you can type "claude" to start Claude Code in text mode.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💰</div>
+                        <h3>100% Free</h3>
+                        <p>No subscriptions, no hidden costs. Microsoft gives it away because they want developers to use their tools.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layout Customization -->
+            <div class="subsection">
+                <h3 class="subsection-title">Customizing Your Layout</h3>
+                <p class="subsection-desc">
+                    VS Code lets you arrange your workspace however you like:
+                </p>
+
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="showTab('layout-basic')">Basic Layout</button>
+                        <button class="tab-btn" onclick="showTab('layout-sidebar')">Show/Hide Sidebar</button>
+                        <button class="tab-btn" onclick="showTab('layout-terminal')">Open Terminal</button>
+                        <button class="tab-btn" onclick="showTab('layout-zen')">Focus Mode</button>
+                    </div>
+
+                    <div id="layout-basic" class="tab-content active">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <div class="code-dots">
+                                    <div class="code-dot red"></div>
+                                    <div class="code-dot yellow"></div>
+                                    <div class="code-dot green"></div>
+                                </div>
+                                <span class="code-label">VS Code Layout Overview</span>
+                            </div>
+                            <div class="code-content">
+<pre>
+┌────────────────────────────────────────────────────────────┐
+│  <span class="code-variable">Menu Bar</span>      File  Edit  View  Terminal  Help            │
+├──────┬─────────────────────────────────────────────────────┤
+│      │                                                     │
+│  S   │                                                     │
+│  I   │              <span class="code-function">Main Editing Area</span>                     │
+│  D   │         (Your documents appear here)                │
+│  E   │                                                     │
+│  B   │                                                     │
+│  A   ├─────────────────────────────────────────────────────┤
+│  R   │  <span class="code-variable">Panel Area</span>  (Terminal lives here)                   │
+│      │  $ claude  ← Type this to start Claude Code!        │
+├──────┴─────────────────────────────────────────────────────┤
+│  <span class="code-variable">Status Bar</span>    Shows helpful info about your file          │
+└────────────────────────────────────────────────────────────┘
+
+<span class="code-comment">The sidebar has icons for:</span>
+📄 File Explorer - See your files
+🔍 Search - Find anything
+🤖 Claude Code - Your AI assistant!
+🧩 Extensions - Add new features
+</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="layout-sidebar" class="tab-content">
+                        <div class="alert alert-info">
+                            <div class="alert-icon">💡</div>
+                            <div class="alert-content">
+                                <h4>Toggle Sidebar</h4>
+                                <p>Press <span class="kbd">Ctrl</span> + <span class="kbd">B</span> (Windows) or <span class="kbd">Cmd</span> + <span class="kbd">B</span> (Mac) to show or hide the left sidebar. This gives you more space when you need to focus on your work.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="layout-terminal" class="tab-content">
+                        <div class="alert alert-success">
+                            <div class="alert-icon">⌨️</div>
+                            <div class="alert-content">
+                                <h4>Open Terminal</h4>
+                                <p>Press <span class="kbd">Ctrl</span> + <span class="kbd">`</span> (the key below Escape) to open the terminal. This is where you can type <strong>claude</strong> to start Claude Code in command-line mode!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="layout-zen" class="tab-content">
+                        <div class="alert alert-warning">
+                            <div class="alert-icon">🧘</div>
+                            <div class="alert-content">
+                                <h4>Zen Mode (Distraction-Free)</h4>
+                                <p>Press <span class="kbd">Ctrl</span> + <span class="kbd">K</span> then <span class="kbd">Z</span> to enter Zen Mode. Everything disappears except your document — perfect for focused work. Press <span class="kbd">Esc</span> twice to exit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extensions -->
+            <div class="subsection">
+                <h3 class="subsection-title">Installing Extensions (Like Claude Code)</h3>
+                <p class="subsection-desc">
+                    Extensions are add-ons that give VS Code new abilities. Here's how to install them:
+                </p>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Click Extensions Icon</h4>
+                        <p>Click the puzzle piece icon (🧩) in the left sidebar, or press <span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span></p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Search</h4>
+                        <p>Type the extension name in the search box (e.g., "Claude Code")</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Install</h4>
+                        <p>Click the blue "Install" button next to the extension</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h4>Done!</h4>
+                        <p>The extension is ready to use. Some may need you to restart VS Code.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Installation -->
+    <section id="installation" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2 class="section-title">Installing & Using Claude Code</h2>
+                <p class="section-subtitle">
+                    Two ways to use Claude Code: Visual Interface or Text Commands — both are easy!
+                </p>
+            </div>
+
+            <!-- Prerequisites -->
+            <div class="alert alert-warning">
+                <div class="alert-icon">📋</div>
+                <div class="alert-content">
+                    <h4>Before You Start</h4>
+                    <p>You'll need: <strong>VS Code</strong> (free download from code.visualstudio.com), and either a <strong>Claude Pro/Max subscription</strong> or an <strong>Anthropic API key</strong>. The API key is like a password that lets Claude Code connect to Claude's AI.</p>
+                </div>
+            </div>
+
+            <!-- Method 1: Extension -->
+            <div class="subsection">
+                <h3 class="subsection-title">Method 1: The Visual Way (Extension)</h3>
+                <p class="subsection-desc">
+                    Best for beginners — Claude appears as a chat panel right inside VS Code:
+                </p>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Open Extensions</h4>
+                        <p>Click the puzzle icon 🧩 in VS Code's left sidebar</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Search "Claude"</h4>
+                        <p>Type "Claude" or "Claude Code" in the search box</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Click Install</h4>
+                        <p>Find the official extension and click the blue Install button</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h4>Sign In</h4>
+                        <p>Click the Claude icon 🤖 in sidebar and log in with your account</p>
+                    </div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        📝 How to Use (After Installation)
+                    </div>
+                    <div class="prompt-box-content">1. Click the Claude icon (🤖) in the left sidebar
+2. Type your request in plain English:
+
+   "Create a summary of all the .txt files in this folder"
+   
+   "Help me organize these files by date"
+   
+   "Write a professional email to my team about the project deadline"
+
+3. Claude shows you what it will do
+4. Click "Accept" to let it proceed, or "Reject" to cancel</div>
+                    <div class="prompt-box-note">💡 Claude always asks for permission before making changes!</div>
+                </div>
+            </div>
+
+            <!-- Method 2: Terminal -->
+            <div class="subsection">
+                <h3 class="subsection-title">Method 2: The Text Way (Terminal/CLI)</h3>
+                <p class="subsection-desc">
+                    For those who prefer typing commands — same power, different interface:
+                </p>
+
+                <div class="terminal-mockup">
+                    <div class="terminal-header">
+                        <div class="code-dots">
+                            <div class="code-dot red"></div>
+                            <div class="code-dot yellow"></div>
+                            <div class="code-dot green"></div>
+                        </div>
+                        <span class="terminal-title">Terminal — Installing Claude Code</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-output"><span class="code-comment"># Step 1: Open terminal in VS Code (press Ctrl + `)</span></div>
+                        <br>
+                        <div class="terminal-output"><span class="code-comment"># Step 2: Install Claude Code (one-time setup)</span></div>
+                        <div><span class="terminal-prompt">$</span> <span class="terminal-command">npm install -g @anthropic-ai/claude-code</span></div>
+                        <br>
+                        <div class="terminal-output"><span class="code-comment"># Step 3: Start Claude Code</span></div>
+                        <div><span class="terminal-prompt">$</span> <span class="terminal-command">claude</span></div>
+                        <br>
+                        <div class="terminal-output" style="color: var(--primary);">
+╔══════════════════════════════════════╗
+║       Welcome to Claude Code!        ║
+║   Type your request in plain English ║
+╚══════════════════════════════════════╝
+                        </div>
+                        <br>
+                        <div><span class="terminal-prompt">You:</span> <span class="terminal-cursor"></span></div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 2rem;">
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-content">
+                        <h4>Which Method Should I Use?</h4>
+                        <p><strong>Visual (Extension):</strong> Great for beginners, see everything in a nice interface.<br>
+                        <strong>Text (Terminal):</strong> Faster once you're comfortable, can be automated in scripts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Commands in Plain Language -->
+            <div class="subsection">
+                <h3 class="subsection-title">Talking to Claude Code: Example Requests</h3>
+                <p class="subsection-desc">
+                    Just describe what you want in everyday language:
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon green">📁</div>
+                        <h3>File Management</h3>
+                        <p>
+                            "Organize all my documents by year"<br>
+                            "Find all PDF files in this folder"<br>
+                            "Rename these files to include today's date"<br>
+                            "Create a backup of my important files"
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📝</div>
+                        <h3>Content Creation</h3>
+                        <p>
+                            "Write a project status update email"<br>
+                            "Create a meeting agenda for tomorrow"<br>
+                            "Summarize this long document"<br>
+                            "Draft a presentation outline about AI"
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon purple">🔍</div>
+                        <h3>Research & Analysis</h3>
+                        <p>
+                            "Find mentions of 'budget' across all files"<br>
+                            "Compare these two documents"<br>
+                            "List all action items from my notes"<br>
+                            "Extract key points from this report"
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon green">🔄</div>
+                        <h3>Automation</h3>
+                        <p>
+                            "Every time I save a file, create a backup"<br>
+                            "Set up a workflow to process invoices"<br>
+                            "Connect this to my ClickUp tasks"<br>
+                            "Create a daily report automatically"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: n8n Integration -->
+    <section id="n8n" class="section section-gradient">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Connecting Claude Code with n8n</h2>
+                <p class="section-subtitle">
+                    Combine AI intelligence with automation superpowers
+                </p>
+            </div>
+
+            <div class="two-col">
+                <div class="two-col-content">
+                    <h2>What Does This Connection Do?</h2>
+                    <p>
+                        When you connect Claude Code to n8n, you give Claude the ability to trigger and create automations. 
+                        Instead of manually building workflows in n8n, you can just <em>describe</em> what you want!
+                    </p>
+                    
+                    <div class="analogy-box">
+                        <h4>Think of it like this...</h4>
+                        <p>
+                            <strong>n8n alone</strong> is like having a powerful robot that can do many tasks — but you have to manually program each step.<br><br>
+                            <strong>Claude Code + n8n</strong> is like giving that robot a brain and voice interface. Now you just say "automate my weekly reports" and the robot figures out how to do it!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="workflow-diagram">
+                    <div style="text-align: center; margin-bottom: 1.5rem; font-weight: 600;">The Magic Connection</div>
+                    <div class="workflow-flow">
+                        <div class="workflow-node workflow-trigger">🗣️ You<br><small>"Describe what you want"</small></div>
+                        <span class="workflow-arrow">→</span>
+                        <div class="workflow-node workflow-action">🤖 Claude<br><small>Understands & Plans</small></div>
+                        <span class="workflow-arrow">→</span>
+                        <div class="workflow-node workflow-output">⚡ n8n<br><small>Executes Automation</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Setting Up -->
+            <div class="subsection">
+                <h3 class="subsection-title">Setting Up the Connection</h3>
+                <p class="subsection-desc">
+                    Here's how to connect Claude Code to your n8n instance:
+                </p>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Get n8n API Key</h4>
+                        <p>In n8n: Settings → API → Create new API key. Copy this key.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Tell Claude About n8n</h4>
+                        <p>In Claude Code, type: "Connect to my n8n at [your-n8n-url]"</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Provide the Key</h4>
+                        <p>When Claude asks, paste your API key</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h4>Start Automating!</h4>
+                        <p>Now describe workflows in plain English</p>
+                    </div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🎯 Setting Up n8n Connection in Plain English
+                    </div>
+                    <div class="prompt-box-content">You: "I want to connect you to my n8n instance so you can create automations for me"
+
+Claude: "Great! I'll need two things:
+         1. Your n8n URL (e.g., https://your-name.n8n.cloud)
+         2. An API key from n8n
+         
+         Where can I find your n8n instance?"
+
+You: "It's at https://my-company.n8n.cloud and here's the API key: n8n_api_xxxxx"
+
+Claude: "Perfect! I'm now connected to your n8n. What would you like to automate?"</div>
+                </div>
+            </div>
+
+            <!-- Sample Workflow -->
+            <div class="subsection">
+                <h3 class="subsection-title">Creating a Workflow Using Only Words</h3>
+                <p class="subsection-desc">
+                    Watch how Claude builds an entire automation from a simple description:
+                </p>
+
+                <div class="terminal-mockup">
+                    <div class="terminal-header">
+                        <div class="code-dots">
+                            <div class="code-dot red"></div>
+                            <div class="code-dot yellow"></div>
+                            <div class="code-dot green"></div>
+                        </div>
+                        <span class="terminal-title">Claude Code — Creating n8n Workflow</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div><span class="terminal-prompt">You:</span> <span class="terminal-command">Create an automation that:</span></div>
+                        <div class="terminal-command">- Checks my email every morning at 9am</div>
+                        <div class="terminal-command">- If there's an email from a client with "urgent" in the subject</div>
+                        <div class="terminal-command">- Send me a Slack message about it</div>
+                        <div class="terminal-command">- And create a high-priority task in ClickUp</div>
+                        <br>
+                        <div class="terminal-output">🤖 <span style="color: var(--accent);">I understand! Let me create this workflow...</span></div>
+                        <br>
+                        <div class="terminal-output">📋 Creating workflow: "Urgent Client Email Handler"</div>
+                        <div class="terminal-output">   ├─ ⏰ Adding: Schedule trigger (9:00 AM daily)</div>
+                        <div class="terminal-output">   ├─ 📧 Adding: Gmail - Check for new emails</div>
+                        <div class="terminal-output">   ├─ 🔀 Adding: Filter - Subject contains "urgent"</div>
+                        <div class="terminal-output">   ├─ 💬 Adding: Slack - Send notification</div>
+                        <div class="terminal-output">   └─ ✅ Adding: ClickUp - Create task</div>
+                        <br>
+                        <div class="terminal-output">✅ <span style="color: var(--accent);">Workflow created and activated!</span></div>
+                        <div class="terminal-output">🔗 View it here: https://your-n8n.cloud/workflow/123</div>
+                        <br>
+                        <div class="terminal-output">Would you like me to test it or make any changes?</div>
+                    </div>
+                </div>
+
+                <div class="alert alert-success" style="margin-top: 2rem;">
+                    <div class="alert-icon">🎉</div>
+                    <div class="alert-content">
+                        <h4>No Drag & Drop Required!</h4>
+                        <p>You just described what you wanted, and Claude built the entire workflow. This would normally take 15-20 minutes of manual work in n8n — done in seconds with plain English!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Agents & Sub-Agents (Simplified) -->
+    <section id="agents" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Agents & Sub-Agents</h2>
+                <p class="section-subtitle">
+                    Building your own team of AI helpers — no coding required!
+                </p>
+            </div>
+
+            <!-- Restaurant Analogy -->
+            <div class="restaurant-visual">
+                <h3 style="text-align: center; margin-bottom: 1rem; font-size: 1.5rem;">🍽️ The Restaurant Analogy</h3>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Understanding agents is easy when you think about how a restaurant works:
+                </p>
+                
+                <div class="restaurant-grid">
+                    <div class="restaurant-role">
+                        <div class="emoji">👔</div>
+                        <h4>Restaurant Manager</h4>
+                        <div class="ai-equiv">= Main Agent</div>
+                        <p>Takes your order, coordinates the team, makes sure everything runs smoothly</p>
+                    </div>
+                    <div class="restaurant-role">
+                        <div class="emoji">👨‍🍳</div>
+                        <h4>Chef</h4>
+                        <div class="ai-equiv">= Sub-Agent #1</div>
+                        <p>Specialist in cooking — only handles food preparation</p>
+                    </div>
+                    <div class="restaurant-role">
+                        <div class="emoji">🍷</div>
+                        <h4>Sommelier</h4>
+                        <div class="ai-equiv">= Sub-Agent #2</div>
+                        <p>Specialist in wine — only handles drink selections</p>
+                    </div>
+                    <div class="restaurant-role">
+                        <div class="emoji">🧹</div>
+                        <h4>Busser</h4>
+                        <div class="ai-equiv">= Sub-Agent #3</div>
+                        <p>Specialist in cleaning — only handles table maintenance</p>
+                    </div>
+                </div>
+
+                <div class="analogy-box" style="margin-top: 2rem; margin-bottom: 0;">
+                    <h4>How it works together:</h4>
+                    <p>
+                        You tell the <strong>Manager</strong> (Main Agent): "I'd like a nice dinner with wine pairings."<br><br>
+                        The Manager doesn't do everything — instead, they delegate:<br>
+                        → "Chef, prepare the tasting menu"<br>
+                        → "Sommelier, select wines for each course"<br>
+                        → "Busser, prepare table 5"<br><br>
+                        Each specialist does their job, and the Manager coordinates. <strong>That's exactly how AI agents work!</strong>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Why Sub-Agents -->
+            <div class="subsection">
+                <h3 class="subsection-title">Why Create Specialized Helpers?</h3>
+                <p class="subsection-desc">
+                    Breaking big tasks into specialized roles makes everything work better:
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <h3>Focused Expertise</h3>
+                        <p>Each helper knows exactly what to do. A "Task Creator" is really good at creating tasks. A "Status Updater" is really good at updating statuses. No confusion!</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon purple">🧱</div>
+                        <h3>Reusable Building Blocks</h3>
+                        <p>Create a helper once, use it forever. Your "Email Writer" helper can be called anytime you need an email written — across any project.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon green">🛡️</div>
+                        <h3>Safer & More Reliable</h3>
+                        <p>If one helper makes a mistake, it doesn't break everything else. The Manager can try again or use a different approach.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📈</div>
+                        <h3>Easy to Expand</h3>
+                        <p>Need to handle Slack messages? Just add a "Slack Helper" to your team. No need to rebuild everything from scratch.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creating Agents with Plain Language -->
+            <div class="subsection">
+                <h3 class="subsection-title">Creating Your First Agent Team (No Code!)</h3>
+                <p class="subsection-desc">
+                    Here's how to create agents using just plain English in Claude Code:
+                </p>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🎯 Step 1: Create the Main Agent (The Manager)
+                    </div>
+                    <div class="prompt-box-content">You: "I want to create a ClickUp Task Manager agent. This agent should be the 
+main coordinator that handles all my ClickUp task requests. When I ask it 
+to do something with tasks, it should figure out what needs to be done 
+and delegate to specialized helpers."
+
+Claude: "I'll create a ClickUp Task Manager agent for you. This will be your 
+main point of contact for all ClickUp operations. 
+
+What kinds of things do you want this manager to handle?
+- Creating new tasks?
+- Updating existing tasks?
+- Changing task statuses?
+- Moving tasks between lists?
+
+Tell me which capabilities you need!"
+
+You: "All of them! I want to be able to do everything with my ClickUp tasks 
+just by describing what I want."</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        👥 Step 2: Create Sub-Agents (The Specialists)
+                    </div>
+                    <div class="prompt-box-content">You: "Now create these specialized helpers for the Task Manager:
+
+1. A 'Task Creator' that's really good at making new tasks with all the 
+   right details like priority, due dates, and assignees
+
+2. A 'Task Updater' that can modify existing tasks - change descriptions, 
+   add comments, update assignees
+
+3. A 'Status Changer' that handles moving tasks through stages like 
+   'To Do' → 'In Progress' → 'Done'
+
+4. A 'Task Mover' that can relocate tasks between different lists and spaces"
+
+Claude: "Perfect! I'm creating these four specialized helpers:
+
+📝 Task Creator - Will handle all new task creation
+   Knows about: priorities, due dates, descriptions, assignees
+   
+✏️ Task Updater - Will modify existing tasks  
+   Knows about: editing descriptions, adding comments, changing details
+   
+🔄 Status Changer - Will manage task statuses
+   Knows about: your workflow stages, status transitions
+   
+📦 Task Mover - Will relocate tasks
+   Knows about: lists, spaces, folders, moving between them
+
+Should I connect these to your ClickUp account now?"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        ✨ Step 3: Use Your Agent Team!
+                    </div>
+                    <div class="prompt-box-content">You: "Create 3 tasks for the website redesign project:
+- 'Review homepage mockups' - high priority, assign to Sarah, due Friday
+- 'Write new about page copy' - normal priority, due next week  
+- 'Update contact form' - low priority"
+
+Claude (Task Manager): "I'll have the Task Creator handle this..."
+
+Task Creator: "Creating 3 tasks in 'Website Redesign' project:
+✅ 'Review homepage mockups' - Priority: High, Assignee: Sarah, Due: Friday
+✅ 'Write new about page copy' - Priority: Normal, Due: Next Monday
+✅ 'Update contact form' - Priority: Low
+
+All tasks created! Here are the links: [links]"
+
+---
+
+You: "Move all completed tasks from last sprint to the Archive list"
+
+Claude (Task Manager): "I'll have the Task Mover handle this..."
+
+Task Mover: "Found 7 completed tasks in 'Sprint 41'. Moving to Archive...
+✅ 7 tasks moved to Archive list. Done!"
+
+---
+
+You: "The homepage mockups task is now in progress"
+
+Claude (Task Manager): "I'll have the Status Changer update that..."
+
+Status Changer: "Updated 'Review homepage mockups': To Do → In Progress ✅"</div>
+                </div>
+
+                <div class="alert alert-success" style="margin-top: 2rem;">
+                    <div class="alert-icon">🎉</div>
+                    <div class="alert-content">
+                        <h4>That's It! You Just Created an AI Team!</h4>
+                        <p>Notice how you never wrote any code? You just described what you wanted in plain English. Claude created the agents, and now they work together automatically whenever you need them.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Visual -->
+            <div class="architecture">
+                <div class="arch-title">Your ClickUp Agent Team</div>
+                <div class="arch-diagram">
+                    <div class="arch-node arch-main">🎯 Task Manager<br><small>Main Agent - Coordinates Everything</small></div>
+                    <div class="arch-connector"></div>
+                    <div class="arch-subagents">
+                        <div class="arch-node arch-sub">📝 Task Creator<br><small>Makes new tasks</small></div>
+                        <div class="arch-node arch-sub">✏️ Task Updater<br><small>Edits existing tasks</small></div>
+                        <div class="arch-node arch-sub">🔄 Status Changer<br><small>Changes statuses</small></div>
+                        <div class="arch-node arch-sub">📦 Task Mover<br><small>Moves between lists</small></div>
+                    </div>
+                    <div class="arch-connector" style="margin-top: 1rem;"></div>
+                    <div class="arch-tasks">
+                        <div class="arch-task">"Create a task for..."</div>
+                        <div class="arch-task">"Update the description..."</div>
+                        <div class="arch-task">"Mark this as done..."</div>
+                        <div class="arch-task">"Move to Archive..."</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Ways to Create Agents -->
+            <div class="subsection">
+                <h3 class="subsection-title">Other Ways to Create AI Agent Teams</h3>
+                <p class="subsection-desc">
+                    Claude Code isn't the only way! Here are other popular tools for building agent systems:
+                </p>
+
+                <div class="tool-options">
+                    <div class="tool-option">
+                        <div class="tool-logo">🤖</div>
+                        <h4>Claude Code</h4>
+                        <span class="difficulty easy">Easiest - Just Talk!</span>
+                        <p>Describe agents in plain English. No setup required beyond installation. Best for quick, personal automations.</p>
+                    </div>
+                    <div class="tool-option">
+                        <div class="tool-logo">🚢</div>
+                        <h4>CrewAI</h4>
+                        <span class="difficulty medium">Medium - Visual + Some Config</span>
+                        <p>Popular framework for creating AI "crews." Think of it as a team builder where you define roles, goals, and how agents collaborate. Has both visual and code options.</p>
+                    </div>
+                    <div class="tool-option">
+                        <div class="tool-logo">🔗</div>
+                        <h4>LangChain / LangGraph</h4>
+                        <span class="difficulty advanced">Advanced - For Developers</span>
+                        <p>Powerful toolkit for complex agent systems. Best when you need fine-grained control. Requires programming knowledge.</p>
+                    </div>
+                    <div class="tool-option">
+                        <div class="tool-logo">⚡</div>
+                        <h4>n8n AI Agents</h4>
+                        <span class="difficulty medium">Medium - Visual Workflow</span>
+                        <p>Build agents directly in n8n using drag-and-drop. Great if you already use n8n for automation. Agents live inside your workflows.</p>
+                    </div>
+                    <div class="tool-option">
+                        <div class="tool-logo">🎭</div>
+                        <h4>AutoGen (Microsoft)</h4>
+                        <span class="difficulty advanced">Advanced - Multi-Agent Conversations</span>
+                        <p>Specialized for agents that talk to each other. Great for complex problem-solving where multiple AIs debate solutions.</p>
+                    </div>
+                    <div class="tool-option">
+                        <div class="tool-logo">🌊</div>
+                        <h4>Flowise</h4>
+                        <span class="difficulty easy">Easy - Drag & Drop</span>
+                        <p>Visual, no-code builder for AI workflows and agents. Connect boxes on a canvas to create agent logic. Great for beginners!</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 2rem;">
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-content">
+                        <h4>Which Should You Choose?</h4>
+                        <p>
+                            <strong>Starting out?</strong> → Use Claude Code (just describe what you want)<br>
+                            <strong>Want visual building?</strong> → Try Flowise or n8n AI Agents<br>
+                            <strong>Building for a team/company?</strong> → Consider CrewAI<br>
+                            <strong>Need maximum flexibility?</strong> → LangChain (requires coding)
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Making Agents Reusable -->
+            <div class="subsection">
+                <h3 class="subsection-title">Making Your Agents Reusable</h3>
+                <p class="subsection-desc">
+                    Save your agent configurations so you can use them again and again:
+                </p>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        💾 Saving Your Agent Team
+                    </div>
+                    <div class="prompt-box-content">You: "Save this ClickUp agent team configuration so I can use it in other projects"
+
+Claude: "I'll save your agent team configuration. What would you like to name it?"
+
+You: "Call it 'ClickUp Task Team'"
+
+Claude: "Saved! Your 'ClickUp Task Team' is now available. 
+
+To use it anytime, just say:
+'Load my ClickUp Task Team' or 'Use my ClickUp agents'
+
+The team includes:
+• Task Manager (main coordinator)
+• Task Creator
+• Task Updater  
+• Status Changer
+• Task Mover
+
+Would you like me to create similar teams for other tools?"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🔄 Using Saved Agents Later
+                    </div>
+                    <div class="prompt-box-content">You: "Load my ClickUp Task Team"
+
+Claude: "ClickUp Task Team loaded and ready! 🎯
+
+I have access to:
+• Task Creator - for new tasks
+• Task Updater - for modifications
+• Status Changer - for workflow updates
+• Task Mover - for reorganizing
+
+What would you like to do with your ClickUp tasks today?"
+
+You: "Create a high-priority bug fix task and assign it to the dev team"
+
+Claude: "Task Creator is handling this...
+✅ Created: 'Bug Fix' - Priority: Urgent - Assigned to: Dev Team
+Link: [clickup link]"</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Secret Sauce -->
+    <section id="secrets" class="section section-gradient">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-number">06</div>
+                <h2 class="section-title">🔥 Secret Sauces of Claude Code</h2>
+                <p class="section-subtitle">
+                    Pro tips and hidden features that will make you a power user
+                </p>
+            </div>
+
+            <div class="sauce-grid">
+                <div class="sauce-card">
+                    <div class="sauce-number">01</div>
+                    <div class="sauce-icon">📋</div>
+                    <h3>The Magic CLAUDE.md File</h3>
+                    <p>Create a file called <code>CLAUDE.md</code> in your project folder. Write instructions like "Always use formal language" or "Our company name is Sunday Natural." Claude reads this automatically and remembers your preferences in every conversation!</p>
+                </div>
+
+                <div class="sauce-card">
+                    <div class="sauce-number">02</div>
+                    <div class="sauce-icon">🎯</div>
+                    <h3>The "Explain First" Trick</h3>
+                    <p>Before asking Claude to DO something complex, first ask: "Explain how you would approach this." Review the plan, make corrections, THEN say "proceed." This dramatically improves results and avoids wasted time!</p>
+                </div>
+
+                <div class="sauce-card">
+                    <div class="sauce-number">03</div>
+                    <div class="sauce-icon">📸</div>
+                    <h3>Screenshot to Action</h3>
+                    <p>Paste a screenshot directly into Claude Code! Show it a design mockup: "Build this." Show it an error message: "Fix this." Show it a competitor's website: "Make something like this." Claude sees and understands images!</p>
+                </div>
+
+                <div class="sauce-card">
+                    <div class="sauce-number">04</div>
+                    <div class="sauce-icon">🔄</div>
+                    <h3>Continue Where You Left Off</h3>
+                    <p>Type <code>claude --continue</code> to pick up exactly where you stopped yesterday. Working on a big project over multiple days? Claude remembers everything from your previous session!</p>
+                </div>
+
+                <div class="sauce-card">
+                    <div class="sauce-number">05</div>
+                    <div class="sauce-icon">💰</div>
+                    <h3>Check Your Usage</h3>
+                    <p>Type <code>/cost</code> during any session to see how many tokens (AI processing units) you've used. Helpful for managing your API costs and knowing when to wrap up a session.</p>
+                </div>
+
+                <div class="sauce-card">
+                    <div class="sauce-number">06</div>
+                    <div class="sauce-icon">🧹</div>
+                    <h3>The /compact Command</h3>
+                    <p>When your conversation gets really long, type <code>/compact</code>. Claude summarizes everything important and clears out the fluff, letting you continue without running out of memory space.</p>
+                </div>
+
+                <div class="sauce-card">
+                    <div class="sauce-number">07</div>
+                    <div class="sauce-icon">🛡️</div>
+                    <h3>Memory Anchors</h3>
+                    <p>In your CLAUDE.md file, start critical rules with "REMEMBER:" — like "REMEMBER: Never delete files without asking first." These instructions survive even when Claude summarizes or compacts the conversation.</p>
+                </div>
+
+                <div class="sauce-card">
+                    <div class="sauce-number">08</div>
+                    <div class="sauce-icon">🔗</div>
+                    <h3>Chain Multiple Tools</h3>
+                    <p>Connect Claude to multiple services at once: ClickUp + Slack + Google Drive. Then say "When a task is marked done in ClickUp, post to Slack and archive the related docs." Claude orchestrates everything!</p>
+                </div>
+
+                <div class="sauce-card">
+                    <div class="sauce-number">09</div>
+                    <div class="sauce-icon">📝</div>
+                    <h3>Test-Driven Requests</h3>
+                    <p>Instead of "write something that does X," say "write something that passes these conditions: [list your requirements]." Claude will keep refining until all your conditions are met — like having a checklist!</p>
+                </div>
+
+                <div class="sauce-card">
+                    <div class="sauce-number">10</div>
+                    <div class="sauce-icon">🎭</div>
+                    <h3>Role-Based Prompting</h3>
+                    <p>Start with "Act as a [role]..." For example: "Act as a marketing expert and review this email" or "Act as a data analyst and find patterns in this spreadsheet." Claude adapts its expertise to your needs!</p>
+                </div>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 3rem;">
+                <div class="alert-icon">💎</div>
+                <div class="alert-content">
+                    <h4>The Ultimate Secret: Be Specific!</h4>
+                    <p>The more detail you give, the better results you get. Instead of "write an email," say "write a professional but friendly email to my client John about the project delay, apologizing and offering a new timeline of 2 weeks." Specificity is the key to AI success!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: When to Use -->
+    <section id="when" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-number">07</div>
+                <h2 class="section-title">When to Use Claude Code</h2>
+                <p class="section-subtitle">
+                    A practical guide to knowing when Claude Code is your best friend
+                </p>
+            </div>
+
+            <div class="decision-matrix">
+                <div class="decision-header">
+                    <div class="decision-cell">Task Type</div>
+                    <div class="decision-cell">Use Claude Code?</div>
+                    <div class="decision-cell">Why?</div>
+                </div>
+                <div class="decision-row">
+                    <div class="decision-cell">Repetitive tasks (same thing many times)</div>
+                    <div class="decision-cell decision-yes">✅ Perfect!</div>
+                    <div class="decision-cell">Claude loves automation — do once, repeat forever</div>
+                </div>
+                <div class="decision-row">
+                    <div class="decision-cell">Creating documents/reports</div>
+                    <div class="decision-cell decision-yes">✅ Excellent</div>
+                    <div class="decision-cell">Describe what you need, Claude writes it</div>
+                </div>
+                <div class="decision-row">
+                    <div class="decision-cell">Organizing files and data</div>
+                    <div class="decision-cell decision-yes">✅ Great</div>
+                    <div class="decision-cell">Claude can sort, rename, and categorize automatically</div>
+                </div>
+                <div class="decision-row">
+                    <div class="decision-cell">Connecting different tools</div>
+                    <div class="decision-cell decision-yes">✅ Ideal</div>
+                    <div class="decision-cell">Claude bridges ClickUp, Slack, email, and more</div>
+                </div>
+                <div class="decision-row">
+                    <div class="decision-cell">Learning something new</div>
+                    <div class="decision-cell decision-yes">✅ Excellent</div>
+                    <div class="decision-cell">Claude explains things and shows examples</div>
+                </div>
+                <div class="decision-row">
+                    <div class="decision-cell">Quick one-off tasks</div>
+                    <div class="decision-cell decision-maybe">⚠️ Maybe</div>
+                    <div class="decision-cell">Might be faster to just do it yourself</div>
+                </div>
+                <div class="decision-row">
+                    <div class="decision-cell">Highly creative original work</div>
+                    <div class="decision-cell decision-maybe">⚠️ As a helper</div>
+                    <div class="decision-cell">Use Claude for ideas, but add your human touch</div>
+                </div>
+                <div class="decision-row">
+                    <div class="decision-cell">Confidential/sensitive data</div>
+                    <div class="decision-cell decision-no">❌ Be careful</div>
+                    <div class="decision-cell">Check your company's AI policy first</div>
+                </div>
+                <div class="decision-row">
+                    <div class="decision-cell">Legal/medical/financial advice</div>
+                    <div class="decision-cell decision-no">❌ Not recommended</div>
+                    <div class="decision-cell">Always consult qualified professionals</div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">The Golden Rules</h3>
+                <p class="subsection-desc">
+                    Keep these principles in mind for the best results:
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon green">✅</div>
+                        <h3>Claude Code Shines When...</h3>
+                        <p>
+                            • You're doing the same thing repeatedly<br>
+                            • You need to connect multiple tools<br>
+                            • The task is clearly defined<br>
+                            • You want to save time on routine work<br>
+                            • You need help learning or explaining<br>
+                            • You're organizing or processing information
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #FF6B6B, #FF8E8E);">⚠️</div>
+                        <h3>Think Twice When...</h3>
+                        <p>
+                            • Working with highly sensitive data<br>
+                            • Making important decisions alone<br>
+                            • The task requires human judgment<br>
+                            • You need guaranteed accuracy<br>
+                            • Legal, medical, or financial matters<br>
+                            • Original creative vision is critical
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 2rem;">
+                <div class="alert-icon">🎯</div>
+                <div class="alert-content">
+                    <h4>The 80/20 Rule</h4>
+                    <p>Let Claude handle the 80% of routine, repetitive work so you can focus your brain power on the 20% that truly needs human creativity, judgment, and decision-making. That's the sweet spot!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="section section-gradient">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🚀 You're Ready!</h2>
+                <p class="section-subtitle">
+                    You now have everything you need to start using Claude Code effectively
+                </p>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Install</h4>
+                    <p>Get VS Code + Claude Code extension</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Connect</h4>
+                    <p>Link to your tools (n8n, ClickUp, etc.)</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Describe</h4>
+                    <p>Tell Claude what you want in plain English</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Review</h4>
+                    <p>Approve Claude's proposed actions</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h4>Enjoy!</h4>
+                    <p>Watch the magic happen ✨</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#intro" class="btn btn-primary" style="margin-right: 1rem;">
+                    ↑ Back to Top
+                </a>
+                <a href="https://docs.anthropic.com/claude-code" class="btn btn-secondary" target="_blank">
+                    📚 Official Documentation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <div class="footer-logo-icon">CC</div>
+            <span>Claude Code Masterclass</span>
+        </div>
+        <p>From basics to building your own AI team — your complete non-technical guide</p>
+        <div class="footer-credits">
+            Created for AI Catalyst | January 2026<br>
+            Prepared by Varun Tyagi | Sunday Natural
+        </div>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        document.querySelectorAll('.card, .sauce-card, .step').forEach((el, index) => {
+            el.style.animationDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>
