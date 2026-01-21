@@ -3164,6 +3164,202 @@ Claude: "Task Creator is handling this...
 Link: [clickup link]"</div>
                 </div>
             </div>
+
+            <!-- ClickUp + Claude Code Setup Guide -->
+            <div class="subsection" style="margin-top: 3rem;">
+                <h3 class="subsection-title">🔗 Setting Up ClickUp + Claude Code Connection</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Before you can create ClickUp agents, you need to connect Claude Code to your ClickUp account. Here's how to do it step-by-step:
+                </p>
+
+                <div class="alert alert-info" style="margin-bottom: 2rem;">
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-content">
+                        <h4>What is MCP?</h4>
+                        <p>MCP (Model Context Protocol) is like a <strong>universal adapter</strong> that lets Claude Code talk to other apps. Think of it like how a USB-C cable connects your phone to different chargers — MCP connects Claude to different services like ClickUp, Slack, Google Drive, and more!</p>
+                    </div>
+                </div>
+
+                <!-- Step-by-step setup -->
+                <div style="display: grid; gap: 1.5rem;">
+                    
+                    <!-- Step 1 -->
+                    <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--primary);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">1</div>
+                            <h4 style="margin: 0; color: var(--primary);">Get Your ClickUp API Token</h4>
+                        </div>
+                        <div style="color: var(--text-secondary); line-height: 1.7;">
+                            <p style="margin-bottom: 0.75rem;">First, you need a "key" that proves you own your ClickUp account:</p>
+                            <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                                <li>Log into <strong>ClickUp</strong> in your browser</li>
+                                <li>Click your <strong>profile picture</strong> (bottom-left corner)</li>
+                                <li>Go to <strong>Settings</strong></li>
+                                <li>Click <strong>Apps</strong> in the left sidebar</li>
+                                <li>Find <strong>"API Token"</strong> and click <strong>"Generate"</strong></li>
+                                <li>Copy the token (it looks like: <code>pk_12345678_ABCDEFGHIJK...</code>)</li>
+                            </ol>
+                            <div class="alert alert-warning" style="margin-top: 1rem;">
+                                <div class="alert-icon">⚠️</div>
+                                <div class="alert-content">
+                                    <strong>Keep this token secret!</strong> It's like a password. Never share it publicly or commit it to GitHub.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--secondary);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: var(--secondary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">2</div>
+                            <h4 style="margin: 0; color: var(--secondary);">Install the ClickUp MCP Server</h4>
+                        </div>
+                        <div style="color: var(--text-secondary); line-height: 1.7;">
+                            <p style="margin-bottom: 0.75rem;">Now tell Claude Code how to connect to ClickUp. In Claude Code, type:</p>
+                            <div class="prompt-box" style="margin: 1rem 0;">
+                                "Help me set up an MCP connection to ClickUp. I have my API token ready."
+                            </div>
+                            <p>Claude will guide you through creating a configuration file. It typically involves:</p>
+                            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                                <li>Creating a file called <code>mcp_config.json</code> or similar</li>
+                                <li>Adding your ClickUp API token to the configuration</li>
+                                <li>Restarting Claude Code to load the new connection</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: var(--accent); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</div>
+                            <h4 style="margin: 0; color: var(--accent);">Configure the MCP Settings File</h4>
+                        </div>
+                        <div style="color: var(--text-secondary); line-height: 1.7;">
+                            <p style="margin-bottom: 0.75rem;">Claude Code uses a settings file to know which tools are available. You'll need to add ClickUp to this file:</p>
+                            
+                            <div class="jargon-box" style="margin: 1rem 0;">
+                                <h4>📁 Where is the settings file?</h4>
+                                <p><strong>Mac/Linux:</strong> <code>~/.config/claude-code/mcp_servers.json</code><br>
+                                <strong>Windows:</strong> <code>%APPDATA%\claude-code\mcp_servers.json</code></p>
+                                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Don't worry — just ask Claude: <em>"Where is my MCP configuration file?"</em> and it will find it for you!</p>
+                            </div>
+
+                            <p style="margin-top: 1rem;">The configuration looks something like this (Claude can create this for you):</p>
+                            <div style="background: var(--dark); border-radius: 8px; padding: 1rem; margin-top: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; overflow-x: auto;">
+                                <pre style="margin: 0; color: var(--text-secondary);">{
+  "mcpServers": {
+    "clickup": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-clickup"],
+      "env": {
+        "CLICKUP_API_TOKEN": "your-token-here"
+      }
+    }
+  }
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--primary);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</div>
+                            <h4 style="margin: 0; color: var(--primary);">Restart & Test the Connection</h4>
+                        </div>
+                        <div style="color: var(--text-secondary); line-height: 1.7;">
+                            <p style="margin-bottom: 0.75rem;">After setting up the configuration:</p>
+                            <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                                <li><strong>Restart Claude Code</strong> (close and reopen VS Code)</li>
+                                <li>Test the connection by asking Claude:</li>
+                            </ol>
+                            <div class="prompt-box" style="margin: 1rem 0;">
+                                "Can you list my ClickUp workspaces?"
+                            </div>
+                            <p>If successful, Claude will show your workspaces! 🎉</p>
+                            
+                            <div class="terminal-mockup" style="margin-top: 1.5rem;">
+                                <div class="terminal-header">
+                                    <div class="terminal-dot red"></div>
+                                    <div class="terminal-dot yellow"></div>
+                                    <div class="terminal-dot green"></div>
+                                    <span style="margin-left: 0.75rem; font-size: 0.8rem; color: var(--text-muted);">Testing ClickUp Connection</span>
+                                </div>
+                                <div class="terminal-content">
+                                    <div class="terminal-line"><span class="terminal-prompt">You:</span> Can you list my ClickUp workspaces?</div>
+                                    <div class="terminal-line"><span class="terminal-claude">Claude:</span> 🔍 Connecting to ClickUp...</div>
+                                    <div class="terminal-line" style="color: var(--accent);">✅ Connected successfully!</div>
+                                    <div class="terminal-line"><span class="terminal-claude">Claude:</span> Found 2 workspaces:</div>
+                                    <div class="terminal-line" style="padding-left: 2rem;">📁 <strong>Sunday Natural</strong> (5 spaces, 23 folders)</div>
+                                    <div class="terminal-line" style="padding-left: 2rem;">📁 <strong>Personal Projects</strong> (2 spaces, 8 folders)</div>
+                                    <div class="terminal-line"><span class="terminal-claude">Claude:</span> Which workspace would you like to work with?</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Troubleshooting -->
+                <div style="margin-top: 2rem;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">🔧 Troubleshooting Common Issues</h4>
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="background: var(--dark); border-radius: 12px; padding: 1rem; display: flex; gap: 1rem; align-items: flex-start;">
+                            <span style="font-size: 1.25rem;">❌</span>
+                            <div>
+                                <strong style="color: var(--primary);">"Connection refused" or "Cannot connect"</strong>
+                                <p style="color: var(--text-secondary); margin: 0.5rem 0 0 0; font-size: 0.9rem;">
+                                    → Check that your API token is correct (no extra spaces)<br>
+                                    → Make sure you restarted VS Code after adding the config<br>
+                                    → Verify your internet connection
+                                </p>
+                            </div>
+                        </div>
+                        <div style="background: var(--dark); border-radius: 12px; padding: 1rem; display: flex; gap: 1rem; align-items: flex-start;">
+                            <span style="font-size: 1.25rem;">❌</span>
+                            <div>
+                                <strong style="color: var(--primary);">"MCP server not found"</strong>
+                                <p style="color: var(--text-secondary); margin: 0.5rem 0 0 0; font-size: 0.9rem;">
+                                    → The ClickUp MCP package may not be installed<br>
+                                    → Ask Claude: "Help me install the ClickUp MCP server"<br>
+                                    → You may need Node.js installed (Claude can help with this too!)
+                                </p>
+                            </div>
+                        </div>
+                        <div style="background: var(--dark); border-radius: 12px; padding: 1rem; display: flex; gap: 1rem; align-items: flex-start;">
+                            <span style="font-size: 1.25rem;">❌</span>
+                            <div>
+                                <strong style="color: var(--primary);">"Permission denied" or "Invalid token"</strong>
+                                <p style="color: var(--text-secondary); margin: 0.5rem 0 0 0; font-size: 0.9rem;">
+                                    → Generate a new API token in ClickUp<br>
+                                    → Make sure your ClickUp account has the right permissions<br>
+                                    → Check if your token has expired
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Popular Connections -->
+                <div style="margin-top: 2.5rem;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">🔌 Other Popular MCP Connections</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">The same process works for many other tools:</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📧 Gmail</span>
+                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">💬 Slack</span>
+                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📁 Google Drive</span>
+                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📊 Notion</span>
+                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">🐙 GitHub</span>
+                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📋 Trello</span>
+                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">🗄️ Airtable</span>
+                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📅 Google Calendar</span>
+                    </div>
+                    <p style="color: var(--text-muted); margin-top: 1rem; font-size: 0.9rem;">
+                        💡 <strong>Pro tip:</strong> Just ask Claude "Help me connect to [tool name]" and it will guide you through the setup!
+                    </p>
+                </div>
+
+            </div>
         </div>
     </section>
 
