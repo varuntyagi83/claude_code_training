@@ -2948,38 +2948,87 @@ You: "All of them! I want to be able to do everything with my ClickUp tasks
 just by describing what I want."</div>
                 </div>
 
+                <div class="alert alert-warning" style="margin: 1.5rem 0;">
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-content">
+                        <h4>Pro Tip: Create One Sub-Agent at a Time!</h4>
+                        <p>Creating all agents at once can cause errors. Instead, create each helper separately — it's more reliable and lets you customize each one.</p>
+                    </div>
+                </div>
+
                 <div class="prompt-box">
                     <div class="prompt-box-header">
-                        👥 Step 2: Create Sub-Agents (The Specialists)
+                        📝 Step 2a: Create the Task Creator
                     </div>
-                    <div class="prompt-box-content">You: "Now create these specialized helpers for the Task Manager:
+                    <div class="prompt-box-content">You: "Create a helper called Task Creator. It should be able to create 
+new tasks in ClickUp with a name, description, priority level, due date, 
+and assignee. It should ask me for the list or project where the task goes."
 
-1. A 'Task Creator' that's really good at making new tasks with all the 
-   right details like priority, due dates, and assignees
+Claude: "I've created the Task Creator helper! 📝
 
-2. A 'Task Updater' that can modify existing tasks - change descriptions, 
-   add comments, update assignees
+It can now:
+• Create tasks with titles and descriptions
+• Set priority (Urgent, High, Normal, Low)
+• Add due dates
+• Assign to team members
+• Put tasks in the right list/project
 
-3. A 'Status Changer' that handles moving tasks through stages like 
-   'To Do' → 'In Progress' → 'Done'
+Ready to create your first task?"</div>
+                </div>
 
-4. A 'Task Mover' that can relocate tasks between different lists and spaces"
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        ✏️ Step 2b: Create the Task Updater
+                    </div>
+                    <div class="prompt-box-content">You: "Create another helper called Task Updater. This one should find 
+existing tasks and let me change their description, add comments, 
+update the assignee, or change the due date."
 
-Claude: "Perfect! I'm creating these four specialized helpers:
+Claude: "Task Updater is ready! ✏️
 
-📝 Task Creator - Will handle all new task creation
-   Knows about: priorities, due dates, descriptions, assignees
-   
-✏️ Task Updater - Will modify existing tasks  
-   Knows about: editing descriptions, adding comments, changing details
-   
-🔄 Status Changer - Will manage task statuses
-   Knows about: your workflow stages, status transitions
-   
-📦 Task Mover - Will relocate tasks
-   Knows about: lists, spaces, folders, moving between them
+It can now:
+• Find tasks by name or ID
+• Edit task descriptions
+• Add comments to tasks
+• Change who's assigned
+• Update due dates
 
-Should I connect these to your ClickUp account now?"</div>
+What task would you like to update?"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🔄 Step 2c: Create the Status Changer
+                    </div>
+                    <div class="prompt-box-content">You: "Create a Status Changer helper. It should be able to move tasks 
+through different stages like To Do, In Progress, Review, and Done."
+
+Claude: "Status Changer is set up! 🔄
+
+It understands your workflow stages:
+• To Do → In Progress → Review → Done
+
+Just tell me which task and what status, like:
+'Move homepage task to In Progress'
+'Mark the report as Done'"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        📦 Step 2d: Create the Task Mover
+                    </div>
+                    <div class="prompt-box-content">You: "Finally, create a Task Mover helper. It should be able to move 
+tasks between different lists, folders, or spaces in ClickUp."
+
+Claude: "Task Mover is ready! 📦
+
+It can relocate tasks between:
+• Different lists
+• Different folders
+• Different spaces
+
+Example: 'Move all completed tasks to Archive'
+or 'Move bug reports to the Dev space'"</div>
                 </div>
 
                 <div class="prompt-box">
@@ -2991,9 +3040,7 @@ Should I connect these to your ClickUp account now?"</div>
 - 'Write new about page copy' - normal priority, due next week  
 - 'Update contact form' - low priority"
 
-Claude (Task Manager): "I'll have the Task Creator handle this..."
-
-Task Creator: "Creating 3 tasks in 'Website Redesign' project:
+Claude (using Task Creator): "Creating 3 tasks in 'Website Redesign' project:
 ✅ 'Review homepage mockups' - Priority: High, Assignee: Sarah, Due: Friday
 ✅ 'Write new about page copy' - Priority: Normal, Due: Next Monday
 ✅ 'Update contact form' - Priority: Low
@@ -3004,18 +3051,15 @@ All tasks created! Here are the links: [links]"
 
 You: "Move all completed tasks from last sprint to the Archive list"
 
-Claude (Task Manager): "I'll have the Task Mover handle this..."
-
-Task Mover: "Found 7 completed tasks in 'Sprint 41'. Moving to Archive...
-✅ 7 tasks moved to Archive list. Done!"
+Claude (using Task Mover): "Found 7 completed tasks in 'Sprint 41'. 
+Moving to Archive... ✅ 7 tasks moved!"
 
 ---
 
 You: "The homepage mockups task is now in progress"
 
-Claude (Task Manager): "I'll have the Status Changer update that..."
-
-Status Changer: "Updated 'Review homepage mockups': To Do → In Progress ✅"</div>
+Claude (using Status Changer): "Updated 'Review homepage mockups': 
+To Do → In Progress ✅"</div>
                 </div>
 
                 <div class="alert alert-success" style="margin-top: 2rem;">
@@ -3172,14 +3216,6 @@ Link: [clickup link]"</div>
                     Before you can create ClickUp agents, you need to connect Claude Code to your ClickUp account. Here's how to do it step-by-step:
                 </p>
 
-                <div class="alert alert-info" style="margin-bottom: 2rem;">
-                    <div class="alert-icon">💡</div>
-                    <div class="alert-content">
-                        <h4>What is MCP?</h4>
-                        <p>MCP (Model Context Protocol) is like a <strong>universal adapter</strong> that lets Claude Code talk to other apps. Think of it like how a USB-C cable connects your phone to different chargers — MCP connects Claude to different services like ClickUp, Slack, Google Drive, and more!</p>
-                    </div>
-                </div>
-
                 <!-- Step-by-step setup -->
                 <div style="display: grid; gap: 1.5rem;">
                     
@@ -3205,6 +3241,15 @@ Link: [clickup link]"</div>
                                     <strong>Keep this token secret!</strong> It's like a password. Never share it publicly or commit it to GitHub.
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- MCP Explanation - After Step 1 -->
+                    <div class="alert alert-info">
+                        <div class="alert-icon">💡</div>
+                        <div class="alert-content">
+                            <h4>What is MCP?</h4>
+                            <p>MCP (Model Context Protocol) is like a <strong>universal adapter</strong> that lets Claude Code talk to other apps. Think of it like how a USB-C cable connects your phone to different chargers — MCP connects Claude to different services like ClickUp, Slack, Google Drive, and more!</p>
                         </div>
                     </div>
 
