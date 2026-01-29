@@ -142,6 +142,74 @@
             width: 100%;
         }
 
+        /* Dropdown Navigation */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .nav-dropdown > a::after {
+            display: none !important;
+        }
+
+        .dropdown-arrow {
+            font-size: 0.6rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--dark-elevated);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.5rem;
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--dark);
+            color: var(--primary);
+        }
+
+        .dropdown-menu .dropdown-divider {
+            height: 1px;
+            background: var(--dark-border);
+            margin: 0.5rem 0;
+        }
+
         .hero {
             min-height: 100vh;
             display: flex;
@@ -1849,13 +1917,22 @@
             </div>
             <ul class="nav-links">
                 <li><a href="javascript:void(0)" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth', block: 'start'});">About</a></li>
-                <li><a href="javascript:void(0)" onclick="document.getElementById('intro').scrollIntoView({behavior: 'smooth', block: 'start'});">Introduction</a></li>
-                <li><a href="javascript:void(0)" onclick="document.getElementById('vscode').scrollIntoView({behavior: 'smooth', block: 'start'});">VS Code</a></li>
-                <li><a href="javascript:void(0)" onclick="document.getElementById('installation').scrollIntoView({behavior: 'smooth', block: 'start'});">Installation</a></li>
-                <li><a href="javascript:void(0)" onclick="document.getElementById('n8n').scrollIntoView({behavior: 'smooth', block: 'start'});">n8n Integration</a></li>
+                <li><a href="javascript:void(0)" onclick="document.getElementById('intro').scrollIntoView({behavior: 'smooth', block: 'start'});">Basics</a></li>
+                <li><a href="javascript:void(0)" onclick="document.getElementById('installation').scrollIntoView({behavior: 'smooth', block: 'start'});">Setup</a></li>
                 <li><a href="javascript:void(0)" onclick="document.getElementById('agents').scrollIntoView({behavior: 'smooth', block: 'start'});">Agents</a></li>
-                <li><a href="javascript:void(0)" onclick="document.getElementById('secrets').scrollIntoView({behavior: 'smooth', block: 'start'});">Secret Sauce</a></li>
-                <li><a href="javascript:void(0)" onclick="document.getElementById('summary').scrollIntoView({behavior: 'smooth', block: 'start'});">Summary</a></li>
+                <li><a href="javascript:void(0)" onclick="document.getElementById('exercise').scrollIntoView({behavior: 'smooth', block: 'start'});">Exercise</a></li>
+                <li><a href="javascript:void(0)" onclick="document.getElementById('secrets').scrollIntoView({behavior: 'smooth', block: 'start'});">Pro Tips</a></li>
+                <li class="nav-dropdown">
+                    <a href="javascript:void(0)">More <span class="dropdown-arrow">▼</span></a>
+                    <div class="dropdown-menu">
+                        <a href="javascript:void(0)" onclick="document.getElementById('vscode').scrollIntoView({behavior: 'smooth', block: 'start'});">💻 VS Code Basics</a>
+                        <a href="javascript:void(0)" onclick="document.getElementById('n8n').scrollIntoView({behavior: 'smooth', block: 'start'});">⚡ n8n Integration</a>
+                        <a href="javascript:void(0)" onclick="document.getElementById('when').scrollIntoView({behavior: 'smooth', block: 'start'});">🎯 When to Use</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" onclick="document.getElementById('qa').scrollIntoView({behavior: 'smooth', block: 'start'});">❓ FAQ</a>
+                        <a href="javascript:void(0)" onclick="document.getElementById('summary').scrollIntoView({behavior: 'smooth', block: 'start'});">📋 Summary</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -1967,45 +2044,57 @@
                     <div class="card" style="background: var(--dark); border-color: var(--dark-border); cursor: pointer;" onclick="document.getElementById('intro').scrollIntoView({behavior: 'smooth', block: 'start'});">
                         <div class="card-icon">🤖</div>
                         <h3>Understanding Claude Code</h3>
-                        <p>What it is, why it matters, and how it's different from regular AI chatbots. The fundamentals made simple!</p>
-                        <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Go to Section →</div>
+                        <p>What it is, why it matters, and how it's different from regular AI chatbots.</p>
+                        <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Section 01 →</div>
                     </div>
                     <div class="card" style="background: var(--dark); border-color: var(--dark-border); cursor: pointer;" onclick="document.getElementById('vscode').scrollIntoView({behavior: 'smooth', block: 'start'});">
                         <div class="card-icon purple">💻</div>
                         <h3>VS Code Essentials</h3>
-                        <p>Navigate Visual Studio Code like a pro — layouts, extensions, and the terminal. No prior experience needed!</p>
-                        <div style="margin-top: 1rem; color: var(--secondary); font-size: 0.85rem; font-weight: 600;">Go to Section →</div>
+                        <p>Navigate Visual Studio Code like a pro — layouts, extensions, and the terminal.</p>
+                        <div style="margin-top: 1rem; color: var(--secondary); font-size: 0.85rem; font-weight: 600;">Section 02 →</div>
                     </div>
                     <div class="card" style="background: var(--dark); border-color: var(--dark-border); cursor: pointer;" onclick="document.getElementById('installation').scrollIntoView({behavior: 'smooth', block: 'start'});">
                         <div class="card-icon green">🔧</div>
                         <h3>Installation & Setup</h3>
-                        <p>Two ways to use Claude Code — the visual extension and the command line. Step-by-step guidance!</p>
-                        <div style="margin-top: 1rem; color: var(--accent); font-size: 0.85rem; font-weight: 600;">Go to Section →</div>
+                        <p>Two ways to use Claude Code — the visual extension and the command line.</p>
+                        <div style="margin-top: 1rem; color: var(--accent); font-size: 0.85rem; font-weight: 600;">Section 03 →</div>
                     </div>
                     <div class="card" style="background: var(--dark); border-color: var(--dark-border); cursor: pointer;" onclick="document.getElementById('n8n').scrollIntoView({behavior: 'smooth', block: 'start'});">
                         <div class="card-icon">⚡</div>
                         <h3>n8n Integration</h3>
-                        <p>Connect Claude Code to n8n and create powerful automations using just plain English descriptions!</p>
-                        <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Go to Section →</div>
+                        <p>Connect Claude Code to n8n for powerful workflow automations.</p>
+                        <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Section 04 →</div>
                     </div>
                     <div class="card" style="background: var(--dark); border-color: var(--dark-border); cursor: pointer;" onclick="document.getElementById('agents').scrollIntoView({behavior: 'smooth', block: 'start'});">
                         <div class="card-icon purple">👥</div>
                         <h3>Agents & Sub-Agents</h3>
-                        <p>Build your own team of AI helpers! Create specialized assistants for ClickUp, email, and more — no coding required!</p>
-                        <div style="margin-top: 1rem; color: var(--secondary); font-size: 0.85rem; font-weight: 600;">Go to Section →</div>
+                        <p>Understand the restaurant analogy and how AI teams work together.</p>
+                        <div style="margin-top: 1rem; color: var(--secondary); font-size: 0.85rem; font-weight: 600;">Section 05 →</div>
+                    </div>
+                    <div class="card" style="background: var(--dark); border-color: var(--dark-border); cursor: pointer; border: 2px solid var(--accent);" onclick="document.getElementById('exercise').scrollIntoView({behavior: 'smooth', block: 'start'});">
+                        <div class="card-icon green">🛠️</div>
+                        <h3>Hands-On Exercise</h3>
+                        <p>Build your own ClickUp Agent Team step-by-step with guided practice!</p>
+                        <div style="margin-top: 1rem; color: var(--accent); font-size: 0.85rem; font-weight: 600;">Section 06 →</div>
                     </div>
                     <div class="card" style="background: var(--dark); border-color: var(--dark-border); cursor: pointer;" onclick="document.getElementById('secrets').scrollIntoView({behavior: 'smooth', block: 'start'});">
-                        <div class="card-icon green">🔥</div>
-                        <h3>Secret Sauces & Best Practices</h3>
-                        <p>Pro tips, hidden features, and the golden rules for when (and when not) to use Claude Code!</p>
-                        <div style="margin-top: 1rem; color: var(--accent); font-size: 0.85rem; font-weight: 600;">Go to Section →</div>
+                        <div class="card-icon">🔥</div>
+                        <h3>Secret Sauces</h3>
+                        <p>Pro tips and hidden features that will make you a power user!</p>
+                        <div style="margin-top: 1rem; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Section 07 →</div>
+                    </div>
+                    <div class="card" style="background: var(--dark); border-color: var(--dark-border); cursor: pointer;" onclick="document.getElementById('when').scrollIntoView({behavior: 'smooth', block: 'start'});">
+                        <div class="card-icon purple">🎯</div>
+                        <h3>When to Use Claude Code</h3>
+                        <p>Decision matrix and golden rules for when (and when not) to use AI.</p>
+                        <div style="margin-top: 1rem; color: var(--secondary); font-size: 0.85rem; font-weight: 600;">Section 08 →</div>
                     </div>
                 </div>
 
                 <div style="text-align: center; margin-top: 2.5rem;">
                     <div style="display: inline-flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: center;">
                         <div style="text-align: center;">
-                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">7</div>
+                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">8</div>
                             <div style="font-size: 0.85rem; color: var(--text-secondary);">Sections</div>
                         </div>
                         <div style="width: 1px; height: 40px; background: var(--dark-border);"></div>
@@ -2020,8 +2109,8 @@
                         </div>
                         <div style="width: 1px; height: 40px; background: var(--dark-border);"></div>
                         <div style="text-align: center;">
-                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">∞</div>
-                            <div style="font-size: 0.85rem; color: var(--text-secondary);">Possibilities</div>
+                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">1</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary);">Hands-On Exercise</div>
                         </div>
                     </div>
                 </div>
@@ -3153,266 +3242,526 @@ To Do → In Progress ✅"</div>
                 </div>
             </div>
 
-            <!-- Making Agents Reusable -->
-            <div class="subsection">
-                <h3 class="subsection-title">Making Your Agents Reusable</h3>
-                <p class="subsection-desc">
-                    Save your agent configurations so you can use them again and again:
+        </div>
+    </section>
+
+    <!-- Section 6: Hands-On Exercise -->
+    <section id="exercise" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-number">06</div>
+                <h2 class="section-title">🛠️ Hands-On Exercise: Build Your ClickUp Agent Team</h2>
+                <p class="section-subtitle">
+                    Let's put theory into practice! Follow along using the <strong>Claude Desktop app</strong> to create your own AI assistant team
                 </p>
+            </div>
 
-                <div class="prompt-box">
-                    <div class="prompt-box-header">
-                        💾 Saving Your Agent Team
-                    </div>
-                    <div class="prompt-box-content">You: "Save this ClickUp agent team configuration so I can use it in other projects"
-
-Claude: "I'll save your agent team configuration. What would you like to name it?"
-
-You: "Call it 'ClickUp Task Team'"
-
-Claude: "Saved! Your 'ClickUp Task Team' is now available. 
-
-To use it anytime, just say:
-'Load my ClickUp Task Team' or 'Use my ClickUp agents'
-
-The team includes:
-• Task Manager (main coordinator)
-• Task Creator
-• Task Updater  
-• Status Changer
-• Task Mover
-
-Would you like me to create similar teams for other tools?"</div>
-                </div>
-
-                <div class="prompt-box">
-                    <div class="prompt-box-header">
-                        🔄 Using Saved Agents Later
-                    </div>
-                    <div class="prompt-box-content">You: "Load my ClickUp Task Team"
-
-Claude: "ClickUp Task Team loaded and ready! 🎯
-
-I have access to:
-• Task Creator - for new tasks
-• Task Updater - for modifications
-• Status Changer - for workflow updates
-• Task Mover - for reorganizing
-
-What would you like to do with your ClickUp tasks today?"
-
-You: "Create a high-priority bug fix task and assign it to the dev team"
-
-Claude: "Task Creator is handling this...
-✅ Created: 'Bug Fix' - Priority: Urgent - Assigned to: Dev Team
-Link: [clickup link]"</div>
+            <!-- Speaker Notes: Section 6 -->
+            <div class="speaker-notes">
+                <span class="timing">⏱️ Suggested Time: 20-25 minutes</span>
+                <h5>Key Teaching Points</h5>
+                <ul>
+                    <li><strong>Use Claude Desktop app for this exercise!</strong> It's simpler than VS Code for non-technical users.</li>
+                    <li><strong>Go slowly through Part 1 (Connection)</strong> — this is where most people get stuck.</li>
+                    <li><strong>Pause after each agent creation</strong> to make sure everyone succeeded.</li>
+                    <li><strong>Have a backup plan:</strong> If someone can't connect, they can watch and try later.</li>
+                    <li><strong>Celebrate successes!</strong> When someone's first agent works, acknowledge it!</li>
+                </ul>
+                <div class="key-point">
+                    <strong>Critical:</strong> The order matters! You MUST connect ClickUp first (Part 1) before creating agents. Don't skip ahead!
                 </div>
             </div>
 
-            <!-- ClickUp + Claude Code Setup Guide -->
-            <div class="subsection" style="margin-top: 3rem;">
-                <h3 class="subsection-title">🔗 Setting Up ClickUp + Claude Code Connection</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-                    Before you can create ClickUp agents, you need to connect Claude Code to your ClickUp account. Here's how to do it step-by-step:
+            <!-- Exercise Overview -->
+            <div class="alert alert-success" style="margin-bottom: 2rem;">
+                <div class="alert-icon">🎯</div>
+                <div class="alert-content">
+                    <h4>What We're Building</h4>
+                    <p>By the end of this exercise, you'll have a team of 4 AI helpers that can manage your ClickUp tasks using just plain English commands!</p>
+                </div>
+            </div>
+
+            <!-- Progress Tracker -->
+            <div style="display: flex; justify-content: space-between; margin-bottom: 3rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div style="text-align: center; flex: 1; min-width: 100px;">
+                    <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center; font-weight: 700;">1</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Connect<br>ClickUp</div>
+                </div>
+                <div style="flex: 1; display: flex; align-items: center; justify-content: center; max-width: 50px;">
+                    <div style="height: 2px; width: 100%; background: var(--dark-border);"></div>
+                </div>
+                <div style="text-align: center; flex: 1; min-width: 100px;">
+                    <div style="width: 40px; height: 40px; background: var(--secondary); border-radius: 50%; margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center; font-weight: 700;">2</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Create<br>Main Agent</div>
+                </div>
+                <div style="flex: 1; display: flex; align-items: center; justify-content: center; max-width: 50px;">
+                    <div style="height: 2px; width: 100%; background: var(--dark-border);"></div>
+                </div>
+                <div style="text-align: center; flex: 1; min-width: 100px;">
+                    <div style="width: 40px; height: 40px; background: var(--accent); border-radius: 50%; margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Create<br>Sub-Agents</div>
+                </div>
+                <div style="flex: 1; display: flex; align-items: center; justify-content: center; max-width: 50px;">
+                    <div style="height: 2px; width: 100%; background: var(--dark-border);"></div>
+                </div>
+                <div style="text-align: center; flex: 1; min-width: 100px;">
+                    <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Test<br>& Save</div>
+                </div>
+            </div>
+
+            <!-- PART 1: Connect ClickUp -->
+            <div class="subsection">
+                <h3 class="subsection-title">Part 1: Connect ClickUp to Claude</h3>
+                <p class="subsection-desc">
+                    Before creating agents, we need to give Claude permission to access your ClickUp account. There are <strong>two ways</strong> to do this — choose whichever you're more comfortable with!
                 </p>
 
-                <!-- Step-by-step setup -->
-                <div style="display: grid; gap: 1.5rem;">
-                    
-                    <!-- Step 1 -->
-                    <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--primary);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                            <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">1</div>
-                            <h4 style="margin: 0; color: var(--primary);">Get Your ClickUp API Token</h4>
-                        </div>
-                        <div style="color: var(--text-secondary); line-height: 1.7;">
-                            <p style="margin-bottom: 0.75rem;">First, you need a "key" that proves you own your ClickUp account:</p>
-                            <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
-                                <li>Log into <strong>ClickUp</strong> in your browser</li>
-                                <li>Click your <strong>profile picture</strong> (bottom-left corner)</li>
-                                <li>Go to <strong>Settings</strong></li>
-                                <li>Click <strong>Apps</strong> in the left sidebar</li>
-                                <li>Find <strong>"API Token"</strong> and click <strong>"Generate"</strong></li>
-                                <li>Copy the token (it looks like: <code>pk_12345678_ABCDEFGHIJK...</code>)</li>
-                            </ol>
-                            <div class="alert alert-warning" style="margin-top: 1rem;">
-                                <div class="alert-icon">⚠️</div>
-                                <div class="alert-content">
-                                    <strong>Keep this token secret!</strong> It's like a password. Never share it publicly or commit it to GitHub.
-                                </div>
+                <!-- Which App to Use -->
+                <div class="alert alert-info" style="margin-bottom: 1.5rem;">
+                    <div class="alert-icon">💻</div>
+                    <div class="alert-content">
+                        <h4>Which App Do I Use?</h4>
+                        <p>For this exercise, use the <strong>Claude Desktop app</strong> — it's the simplest way to connect to ClickUp. Download it free from <a href="https://claude.ai/download" target="_blank" style="color: var(--primary);">claude.ai/download</a> if you haven't already.</p>
+                    </div>
+                </div>
+
+                <!-- Step 1.1: Get API Token (Same for both methods) -->
+                <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--primary);">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">1.1</div>
+                        <h4 style="margin: 0; color: var(--primary);">Get Your ClickUp API Token</h4>
+                    </div>
+                    <div style="color: var(--text-secondary); line-height: 1.7;">
+                        <p style="margin-bottom: 0.75rem;">First, get a "key" that proves you own your ClickUp account:</p>
+                        <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                            <li>Log into <strong>ClickUp</strong> in your browser</li>
+                            <li>Click your <strong>profile picture</strong> (bottom-left corner)</li>
+                            <li>Go to <strong>Settings</strong></li>
+                            <li>Click <strong>Apps</strong> in the left sidebar</li>
+                            <li>Find <strong>"API Token"</strong> and click <strong>"Generate"</strong></li>
+                            <li>Copy the token (looks like: <code>pk_12345678_ABCDEFGHIJK...</code>)</li>
+                        </ol>
+                        <div class="alert alert-warning" style="margin-top: 1rem;">
+                            <div class="alert-icon">⚠️</div>
+                            <div class="alert-content">
+                                <strong>Keep this token secret!</strong> It's like a password. Never share it publicly or post it online.
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- MCP Explanation - After Step 1 -->
-                    <div class="alert alert-info">
-                        <div class="alert-icon">💡</div>
-                        <div class="alert-content">
-                            <h4>What is MCP?</h4>
-                            <p>MCP (Model Context Protocol) is like a <strong>universal adapter</strong> that lets Claude Code talk to other apps. Think of it like how a USB-C cable connects your phone to different chargers — MCP connects Claude to different services like ClickUp, Slack, Google Drive, and more!</p>
+                <!-- Choose Your Method -->
+                <div style="background: linear-gradient(135deg, rgba(124, 92, 255, 0.1) 0%, rgba(232, 108, 61, 0.1) 100%); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <h4 style="text-align: center; margin-bottom: 1rem;">🔀 Choose Your Setup Method</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div style="background: var(--dark); border-radius: 12px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">✨</div>
+                            <h5 style="color: var(--accent); margin-bottom: 0.5rem;">Option A: Simple Way</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Let Claude guide you through setup. Easiest for beginners!</p>
+                        </div>
+                        <div style="background: var(--dark); border-radius: 12px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔧</div>
+                            <h5 style="color: var(--secondary); margin-bottom: 0.5rem;">Option B: Manual Way</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Edit config file yourself. Better if you prefer not to share your token with Claude.</p>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Step 2 -->
-                    <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--secondary);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                            <div style="background: var(--secondary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">2</div>
-                            <h4 style="margin: 0; color: var(--secondary);">Install the ClickUp MCP Server</h4>
+                <!-- OPTION A: Simple Way -->
+                <div style="background: var(--dark-elevated); border: 2px solid var(--accent); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="background: var(--accent); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">A</div>
+                        <h4 style="margin: 0; color: var(--accent);">Option A: The Simple Way (Recommended)</h4>
+                    </div>
+                    <div style="color: var(--text-secondary); line-height: 1.7;">
+                        <p style="margin-bottom: 1rem;">Just ask Claude to help you — it will guide you through the entire process and prompt you for your token when needed:</p>
+                        
+                        <div class="prompt-box" style="margin: 1rem 0;">
+                            <div class="prompt-box-header">Step 1: Ask Claude for Help</div>
+                            <div class="prompt-box-content">You: "I want to connect you to my ClickUp account so you can help me 
+manage tasks. Can you help me set this up?"
+
+Claude: "I'd be happy to help you connect to ClickUp! To do this, I'll need 
+your ClickUp API token. Here's how to get it:
+
+1. Go to ClickUp Settings → Apps → API Token
+2. Click 'Generate' if you don't have one
+3. Copy the token
+
+Once you have it, please paste it here and I'll set up the connection 
+for you. 
+
+🔒 Security note: Your API token will be stored locally in your Claude 
+Desktop configuration. I don't store or remember it after this session."
+
+You: "Here's my token: pk_12345678_ABCDEFGHIJK..."
+
+Claude: "Perfect! I'm setting up the ClickUp connection now...
+✅ Configuration complete! Please restart Claude Desktop to activate 
+the connection."</div>
                         </div>
-                        <div style="color: var(--text-secondary); line-height: 1.7;">
-                            <p style="margin-bottom: 0.75rem;">Now tell Claude Code how to connect to ClickUp. In Claude Code, type:</p>
-                            <div class="prompt-box" style="margin: 1rem 0;">
-                                "Help me set up an MCP connection to ClickUp. I have my API token ready."
+
+                        <!-- Security Note for Option A -->
+                        <div class="alert alert-info" style="margin-top: 1rem;">
+                            <div class="alert-icon">🔒</div>
+                            <div class="alert-content">
+                                <h4>Is It Safe to Share My Token with Claude?</h4>
+                                <p><strong>Yes, it's safe.</strong> When you share your token with Claude Desktop:</p>
+                                <ul style="margin: 0.5rem 0 0 1rem; font-size: 0.9rem;">
+                                    <li>The token is stored <strong>locally on your computer</strong> in a config file</li>
+                                    <li>Claude does <strong>not</strong> send your token to external servers</li>
+                                    <li>Claude does <strong>not</strong> remember your token after the session</li>
+                                    <li>It's the same as manually adding it to the config file — just easier!</li>
+                                </ul>
+                                <p style="margin-top: 0.5rem; font-size: 0.9rem;">However, if you prefer full control over where your token goes, use <strong>Option B</strong> below.</p>
                             </div>
-                            <p>Claude will guide you through creating a configuration file. It typically involves:</p>
-                            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                                <li>Creating a file called <code>mcp_config.json</code> or similar</li>
-                                <li>Adding your ClickUp API token to the configuration</li>
-                                <li>Restarting Claude Code to load the new connection</li>
-                            </ul>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Step 3 -->
-                    <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--accent);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                            <div style="background: var(--accent); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</div>
-                            <h4 style="margin: 0; color: var(--accent);">Configure the MCP Settings File</h4>
+                <!-- OPTION B: Manual Way -->
+                <details style="background: var(--dark-elevated); border: 2px solid var(--secondary); border-radius: 16px; margin-bottom: 1.5rem;">
+                    <summary style="padding: 1.5rem; cursor: pointer; display: flex; align-items: center; gap: 1rem;">
+                        <div style="background: var(--secondary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">B</div>
+                        <div>
+                            <h4 style="margin: 0; color: var(--secondary);">Option B: The Manual Way (Config File)</h4>
+                            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-secondary);">Click to expand — use this if you prefer not to share your token with Claude</p>
                         </div>
-                        <div style="color: var(--text-secondary); line-height: 1.7;">
-                            <p style="margin-bottom: 0.75rem;">Claude Code uses a settings file to know which tools are available. You'll need to add ClickUp to this file:</p>
-                            
-                            <div class="jargon-box" style="margin: 1rem 0;">
-                                <h4>📁 Where is the settings file?</h4>
-                                <p><strong>Mac/Linux:</strong> <code>~/.config/claude-code/mcp_servers.json</code><br>
-                                <strong>Windows:</strong> <code>%APPDATA%\claude-code\mcp_servers.json</code></p>
-                                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Don't worry — just ask Claude: <em>"Where is my MCP configuration file?"</em> and it will find it for you!</p>
-                            </div>
+                    </summary>
+                    <div style="padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); line-height: 1.7;">
+                        <p style="margin-bottom: 1rem;">If you'd rather not paste your API token into the chat, you can manually add it to the config file:</p>
+                        
+                        <h5 style="color: var(--text-primary); margin: 1rem 0 0.5rem 0;">Step 1: Find Your Config File</h5>
+                        <ul style="margin-left: 1.5rem;">
+                            <li><strong>Mac:</strong> <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+                            <li><strong>Windows:</strong> <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
+                        </ul>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">💡 Tip: In Claude Desktop, go to <strong>Settings → Developer → Edit Config</strong> to open the file directly.</p>
 
-                            <p style="margin-top: 1rem;">The configuration looks something like this (Claude can create this for you):</p>
-                            <div style="background: var(--dark); border-radius: 8px; padding: 1rem; margin-top: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; overflow-x: auto;">
-                                <pre style="margin: 0; color: var(--text-secondary);">{
+                        <h5 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem 0;">Step 2: Add ClickUp Configuration</h5>
+                        <p>Add this to your config file (or ask Claude to show you the exact format):</p>
+                        <div style="background: var(--dark); border-radius: 8px; padding: 1rem; margin-top: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; overflow-x: auto;">
+                            <pre style="margin: 0; color: var(--text-secondary);">{
   "mcpServers": {
     "clickup": {
       "command": "npx",
       "args": ["-y", "@anthropic/mcp-clickup"],
       "env": {
-        "CLICKUP_API_TOKEN": "your-token-here"
+        "CLICKUP_API_TOKEN": "pk_your_token_here"
       }
     }
   }
 }</pre>
+                        </div>
+                        <p style="font-size: 0.9rem; margin-top: 0.75rem;">Replace <code>pk_your_token_here</code> with your actual API token.</p>
+
+                        <h5 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem 0;">Step 3: Restart Claude Desktop</h5>
+                        <p>Close and reopen Claude Desktop to load the new configuration.</p>
+
+                        <div class="alert alert-success" style="margin-top: 1rem;">
+                            <div class="alert-icon">✅</div>
+                            <div class="alert-content">
+                                <strong>Why choose this method?</strong> Your API token goes directly into the config file without being typed into a chat. Some users prefer this for maximum control over their credentials.
                             </div>
                         </div>
                     </div>
+                </details>
 
-                    <!-- Step 4 -->
-                    <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--primary);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                            <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</div>
-                            <h4 style="margin: 0; color: var(--primary);">Restart & Test the Connection</h4>
-                        </div>
-                        <div style="color: var(--text-secondary); line-height: 1.7;">
-                            <p style="margin-bottom: 0.75rem;">After setting up the configuration:</p>
-                            <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
-                                <li><strong>Restart Claude Code</strong> (close and reopen VS Code)</li>
-                                <li>Test the connection by asking Claude:</li>
-                            </ol>
-                            <div class="prompt-box" style="margin: 1rem 0;">
-                                "Can you list my ClickUp workspaces?"
-                            </div>
-                            <p>If successful, Claude will show your workspaces! 🎉</p>
-                            
-                            <div class="terminal-mockup" style="margin-top: 1.5rem;">
-                                <div class="terminal-header">
-                                    <div class="terminal-dot red"></div>
-                                    <div class="terminal-dot yellow"></div>
-                                    <div class="terminal-dot green"></div>
-                                    <span style="margin-left: 0.75rem; font-size: 0.8rem; color: var(--text-muted);">Testing ClickUp Connection</span>
-                                </div>
-                                <div class="terminal-content">
-                                    <div class="terminal-line"><span class="terminal-prompt">You:</span> Can you list my ClickUp workspaces?</div>
-                                    <div class="terminal-line"><span class="terminal-claude">Claude:</span> 🔍 Connecting to ClickUp...</div>
-                                    <div class="terminal-line" style="color: var(--accent);">✅ Connected successfully!</div>
-                                    <div class="terminal-line"><span class="terminal-claude">Claude:</span> Found 2 workspaces:</div>
-                                    <div class="terminal-line" style="padding-left: 2rem;">📁 <strong>Sunday Natural</strong> (5 spaces, 23 folders)</div>
-                                    <div class="terminal-line" style="padding-left: 2rem;">📁 <strong>Personal Projects</strong> (2 spaces, 8 folders)</div>
-                                    <div class="terminal-line"><span class="terminal-claude">Claude:</span> Which workspace would you like to work with?</div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Step 1.3: Test Connection (Same for both methods) -->
+                <div style="background: var(--dark-elevated); border: 1px solid var(--dark-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--primary);">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">1.3</div>
+                        <h4 style="margin: 0; color: var(--primary);">Test Your Connection</h4>
                     </div>
-
+                    <div style="color: var(--text-secondary); line-height: 1.7;">
+                        <p style="margin-bottom: 0.75rem;">After setup (using either method), restart Claude Desktop and test:</p>
+                        <div class="prompt-box" style="margin: 1rem 0;">
+                            "Can you list my ClickUp workspaces?"
+                        </div>
+                        <div class="terminal-mockup" style="margin-top: 1rem;">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                                <span style="margin-left: 0.75rem; font-size: 0.8rem; color: var(--text-muted);">Claude Desktop</span>
+                            </div>
+                            <div class="terminal-content">
+                                <div class="terminal-line"><span class="terminal-prompt">You:</span> Can you list my ClickUp workspaces?</div>
+                                <div class="terminal-line"><span class="terminal-claude">Claude:</span> 🔍 Connecting to ClickUp...</div>
+                                <div class="terminal-line" style="color: var(--accent);">✅ Connected successfully!</div>
+                                <div class="terminal-line"><span class="terminal-claude">Claude:</span> Found 2 workspaces:</div>
+                                <div class="terminal-line" style="padding-left: 2rem;">📁 <strong>My Workspace</strong> (3 spaces)</div>
+                                <div class="terminal-line" style="padding-left: 2rem;">📁 <strong>Personal</strong> (1 space)</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; color: var(--accent);">✅ If you see your workspaces, you're ready for Part 2!</p>
+                    </div>
                 </div>
 
                 <!-- Troubleshooting -->
-                <div style="margin-top: 2rem;">
-                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">🔧 Troubleshooting Common Issues</h4>
-                    <div style="display: grid; gap: 1rem;">
-                        <div style="background: var(--dark); border-radius: 12px; padding: 1rem; display: flex; gap: 1rem; align-items: flex-start;">
-                            <span style="font-size: 1.25rem;">❌</span>
-                            <div>
-                                <strong style="color: var(--primary);">"Connection refused" or "Cannot connect"</strong>
-                                <p style="color: var(--text-secondary); margin: 0.5rem 0 0 0; font-size: 0.9rem;">
-                                    → Check that your API token is correct (no extra spaces)<br>
-                                    → Make sure you restarted VS Code after adding the config<br>
-                                    → Verify your internet connection
-                                </p>
-                            </div>
-                        </div>
-                        <div style="background: var(--dark); border-radius: 12px; padding: 1rem; display: flex; gap: 1rem; align-items: flex-start;">
-                            <span style="font-size: 1.25rem;">❌</span>
-                            <div>
-                                <strong style="color: var(--primary);">"MCP server not found"</strong>
-                                <p style="color: var(--text-secondary); margin: 0.5rem 0 0 0; font-size: 0.9rem;">
-                                    → The ClickUp MCP package may not be installed<br>
-                                    → Ask Claude: "Help me install the ClickUp MCP server"<br>
-                                    → You may need Node.js installed (Claude can help with this too!)
-                                </p>
-                            </div>
-                        </div>
-                        <div style="background: var(--dark); border-radius: 12px; padding: 1rem; display: flex; gap: 1rem; align-items: flex-start;">
-                            <span style="font-size: 1.25rem;">❌</span>
-                            <div>
-                                <strong style="color: var(--primary);">"Permission denied" or "Invalid token"</strong>
-                                <p style="color: var(--text-secondary); margin: 0.5rem 0 0 0; font-size: 0.9rem;">
-                                    → Generate a new API token in ClickUp<br>
-                                    → Make sure your ClickUp account has the right permissions<br>
-                                    → Check if your token has expired
-                                </p>
-                            </div>
-                        </div>
+                <details style="background: var(--dark); border-radius: 12px; padding: 1rem; margin-top: 1rem;">
+                    <summary style="cursor: pointer; font-weight: 600; color: var(--primary);">🔧 Connection Not Working? Click here for troubleshooting</summary>
+                    <div style="margin-top: 1rem; color: var(--text-secondary); line-height: 1.7;">
+                        <p><strong>❌ "Invalid token"</strong> → Make sure you copied the entire token with no extra spaces</p>
+                        <p><strong>❌ "Connection failed"</strong> → Try generating a new token in ClickUp Settings → Apps</p>
+                        <p><strong>❌ "MCP server not found"</strong> → Make sure you restarted Claude Desktop after setup</p>
+                        <p><strong>❌ Claude doesn't recognize ClickUp commands</strong> → The connection may not have loaded. Restart Claude Desktop completely.</p>
+                        <p><strong>❌ Still stuck?</strong> → Ask Claude: "Can you diagnose why my ClickUp connection isn't working?"</p>
                     </div>
-                </div>
-
-                <!-- Other Popular Connections -->
-                <div style="margin-top: 2.5rem;">
-                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">🔌 Other Popular MCP Connections</h4>
-                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">The same process works for many other tools:</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
-                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📧 Gmail</span>
-                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">💬 Slack</span>
-                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📁 Google Drive</span>
-                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📊 Notion</span>
-                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">🐙 GitHub</span>
-                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📋 Trello</span>
-                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">🗄️ Airtable</span>
-                        <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--dark-border);">📅 Google Calendar</span>
-                    </div>
-                    <p style="color: var(--text-muted); margin-top: 1rem; font-size: 0.9rem;">
-                        💡 <strong>Pro tip:</strong> Just ask Claude "Help me connect to [tool name]" and it will guide you through the setup!
-                    </p>
-                </div>
-
+                </details>
             </div>
+
+            <!-- PART 2: Create Main Agent -->
+            <div class="subsection">
+                <h3 class="subsection-title">Part 2: Create Your Main Agent (The Manager)</h3>
+                <p class="subsection-desc">
+                    Now let's create the "manager" that will coordinate all your ClickUp operations:
+                </p>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🎯 Create the Task Manager
+                    </div>
+                    <div class="prompt-box-content">You: "I want to create a ClickUp Task Manager agent. This should be my 
+main coordinator for all ClickUp operations. When I ask it to do 
+something with tasks, it should understand what I need and handle it.
+
+It should be able to:
+- Create new tasks
+- Update existing tasks  
+- Change task statuses
+- Move tasks between lists
+
+Please create this main agent for me."
+
+Claude: "I've created your ClickUp Task Manager! 🎯
+
+This agent is now your main point of contact for all ClickUp operations.
+It understands natural language requests about tasks.
+
+Try saying things like:
+• 'Create a task called...'
+• 'Update the status of...'
+• 'Move the task to...'
+
+Would you like to test it or create specialized helpers for it?"</div>
+                </div>
+            </div>
+
+            <!-- PART 3: Create Sub-Agents -->
+            <div class="subsection">
+                <h3 class="subsection-title">Part 3: Create Your Sub-Agents (The Specialists)</h3>
+                <p class="subsection-desc">
+                    Now let's create specialized helpers. <strong>Important: Create them one at a time!</strong>
+                </p>
+
+                <div class="alert alert-warning" style="margin-bottom: 1.5rem;">
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-content">
+                        <h4>Pro Tip: One Agent at a Time!</h4>
+                        <p>Creating all agents at once can cause errors. Create each helper separately for best results.</p>
+                    </div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        📝 Sub-Agent 1: Task Creator
+                    </div>
+                    <div class="prompt-box-content">You: "Create a helper called Task Creator. It should be able to create 
+new tasks in ClickUp with a name, description, priority level, due date, 
+and assignee. It should ask me for the list or project where the task goes."
+
+Claude: "I've created the Task Creator helper! 📝
+
+It can now:
+• Create tasks with titles and descriptions
+• Set priority (Urgent, High, Normal, Low)
+• Add due dates
+• Assign to team members
+• Put tasks in the right list/project
+
+Ready to create your first task?"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        ✏️ Sub-Agent 2: Task Updater
+                    </div>
+                    <div class="prompt-box-content">You: "Create another helper called Task Updater. This one should find 
+existing tasks and let me change their description, add comments, 
+update the assignee, or change the due date."
+
+Claude: "Task Updater is ready! ✏️
+
+It can now:
+• Find tasks by name or ID
+• Edit task descriptions
+• Add comments to tasks
+• Change who's assigned
+• Update due dates
+
+What task would you like to update?"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🔄 Sub-Agent 3: Status Changer
+                    </div>
+                    <div class="prompt-box-content">You: "Create a Status Changer helper. It should move tasks through 
+different stages like To Do, In Progress, Review, and Done."
+
+Claude: "Status Changer is set up! 🔄
+
+It understands your workflow stages:
+• To Do → In Progress → Review → Done
+
+Just tell me which task and what status, like:
+'Move homepage task to In Progress'
+'Mark the report as Done'"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        📦 Sub-Agent 4: Task Mover
+                    </div>
+                    <div class="prompt-box-content">You: "Create a Task Mover helper. It should move tasks between 
+different lists, folders, or spaces in ClickUp."
+
+Claude: "Task Mover is ready! 📦
+
+It can relocate tasks between:
+• Different lists
+• Different folders  
+• Different spaces
+
+Example: 'Move all completed tasks to Archive'
+or 'Move bug reports to the Dev space'"</div>
+                </div>
+            </div>
+
+            <!-- PART 4: Test Your Team -->
+            <div class="subsection">
+                <h3 class="subsection-title">Part 4: Test Your Agent Team!</h3>
+                <p class="subsection-desc">
+                    Let's make sure everything works. Try these commands:
+                </p>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🧪 Test 1: Create a Task
+                    </div>
+                    <div class="prompt-box-content">You: "Create a task called 'Test my new AI assistant' with high priority, 
+due tomorrow, in my default list"
+
+Claude (using Task Creator): "Creating task...
+✅ Created: 'Test my new AI assistant'
+   Priority: High
+   Due: Tomorrow
+   List: Default
+   Link: [clickup link]"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🧪 Test 2: Update Status
+                    </div>
+                    <div class="prompt-box-content">You: "Move 'Test my new AI assistant' to In Progress"
+
+Claude (using Status Changer): "Updating status...
+✅ 'Test my new AI assistant': To Do → In Progress"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🧪 Test 3: Add a Comment
+                    </div>
+                    <div class="prompt-box-content">You: "Add a comment to that task saying 'This was created by my AI assistant!'"
+
+Claude (using Task Updater): "Adding comment...
+✅ Comment added to 'Test my new AI assistant'"</div>
+                </div>
+
+                <div class="alert alert-success" style="margin-top: 1.5rem;">
+                    <div class="alert-icon">🎉</div>
+                    <div class="alert-content">
+                        <h4>Congratulations!</h4>
+                        <p>If all tests passed, you now have a working AI team managing your ClickUp tasks!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 5: Save Your Configuration -->
+            <div class="subsection">
+                <h3 class="subsection-title">Part 5: Save Your Agent Team for Later</h3>
+                <p class="subsection-desc">
+                    Don't lose your work! Save your agent configuration so you can use it anytime:
+                </p>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        💾 Save Your Team
+                    </div>
+                    <div class="prompt-box-content">You: "Save this ClickUp agent team configuration so I can use it in future sessions"
+
+Claude: "I'll save your agent team. What would you like to name it?"
+
+You: "Call it 'My ClickUp Task Team'"
+
+Claude: "Saved! ✅ Your 'My ClickUp Task Team' is now available.
+
+To use it later, just say:
+'Load My ClickUp Task Team' or 'Use my ClickUp agents'
+
+The team includes:
+• Task Manager (coordinator)
+• Task Creator
+• Task Updater
+• Status Changer
+• Task Mover"</div>
+                </div>
+
+                <div class="prompt-box">
+                    <div class="prompt-box-header">
+                        🔄 Loading Your Team Later
+                    </div>
+                    <div class="prompt-box-content">You: "Load My ClickUp Task Team"
+
+Claude: "ClickUp Task Team loaded and ready! 🎯
+
+I have access to your 4 helpers:
+• Task Creator - for new tasks
+• Task Updater - for modifications
+• Status Changer - for workflow updates
+• Task Mover - for reorganizing
+
+What would you like to do with your ClickUp tasks today?"</div>
+                </div>
+            </div>
+
+            <!-- Exercise Complete -->
+            <div style="background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(124, 92, 255, 0.1) 100%); border: 2px solid var(--accent); border-radius: 20px; padding: 2rem; text-align: center; margin-top: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🏆</div>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem;">Exercise Complete!</h3>
+                <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">
+                    You've successfully built your first AI agent team! You can now manage ClickUp tasks using just plain English.
+                </p>
+                <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem;">✅ Connected ClickUp</span>
+                    <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem;">✅ Created Main Agent</span>
+                    <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem;">✅ Created 4 Sub-Agents</span>
+                    <span style="background: var(--dark); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem;">✅ Tested & Saved</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Section 6: Secret Sauce -->
+    <!-- Section 7: Secret Sauce -->
     <section id="secrets" class="section section-dark">
         <div class="container">
             <div class="section-header">
-                <div class="section-number">06</div>
+                <div class="section-number">07</div>
                 <h2 class="section-title">🔥 Secret Sauces of Claude Code</h2>
                 <p class="section-subtitle">
                     Pro tips and hidden features that will make you a power user
@@ -3516,11 +3865,11 @@ Link: [clickup link]"</div>
         </div>
     </section>
 
-    <!-- Section 7: When to Use -->
+    <!-- Section 8: When to Use -->
     <section id="when" class="section section-gradient">
         <div class="container">
             <div class="section-header">
-                <div class="section-number">07</div>
+                <div class="section-number">08</div>
                 <h2 class="section-title">When to Use Claude Code</h2>
                 <p class="section-subtitle">
                     A practical guide to knowing when Claude Code is your best friend
@@ -3988,7 +4337,7 @@ Link: [clickup link]"</div>
                         <p>
                             <strong>Key Takeaway:</strong> VS Code is the free "home base" where Claude Code lives. It's like your phone — 
                             useful on its own, but amazing with apps (extensions). We learned layouts, keyboard shortcuts, and how extensions 
-                            add superpowers. Technical terms like "Electron" and "API" are just behind-the-scenes magic you don't need to worry about!
+                            add superpowers.
                         </p>
                     </div>
                 </div>
@@ -3999,8 +4348,7 @@ Link: [clickup link]"</div>
                         <h4>🔧 Section 3: Installing & Using Claude Code</h4>
                         <p>
                             <strong>Key Takeaway:</strong> Two ways to use Claude Code — the visual sidebar (click the 🤖 icon) or the terminal 
-                            (type <code>claude</code>). Both work with plain English! Just describe what you want: "Create a summary of my documents" 
-                            — and Claude does it. Always asks permission before making changes.
+                            (type <code>claude</code>). Both work with plain English! Just describe what you want and Claude does it.
                         </p>
                     </div>
                 </div>
@@ -4011,8 +4359,7 @@ Link: [clickup link]"</div>
                         <h4>⚡ Section 4: n8n Integration</h4>
                         <p>
                             <strong>Key Takeaway:</strong> Connect Claude Code to n8n = describe automations in plain English! 
-                            Instead of manually building workflows node by node, just tell Claude what you want: 
-                            "When I get an urgent email, notify me on Slack and create a ClickUp task." Claude builds it for you.
+                            Instead of manually building workflows, just tell Claude what you want and it builds it for you.
                         </p>
                     </div>
                 </div>
@@ -4022,9 +4369,19 @@ Link: [clickup link]"</div>
                     <div class="timeline-content">
                         <h4>👥 Section 5: Agents & Sub-Agents</h4>
                         <p>
-                            <strong>Key Takeaway:</strong> Build your own AI team using the restaurant model! A Main Agent (manager) coordinates 
-                            specialized Sub-Agents (chef, sommelier, busser). Create them by describing their roles in plain English. 
-                            Save and reuse them forever. Also explored other tools like CrewAI, Flowise, and n8n AI Agents.
+                            <strong>Key Takeaway:</strong> Understand the restaurant model! A Main Agent (manager) coordinates 
+                            specialized Sub-Agents (chef, sommelier, busser). Also explored tools like CrewAI, Flowise, and n8n AI Agents.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" style="border-left-color: var(--accent);">
+                    <div class="timeline-dot" style="background: var(--accent);"></div>
+                    <div class="timeline-content" style="border-left: 3px solid var(--accent);">
+                        <h4>🛠️ Section 6: Hands-On Exercise</h4>
+                        <p>
+                            <strong>Key Takeaway:</strong> We built a complete ClickUp Agent Team! Connected ClickUp via MCP, created a Main Agent,
+                            built 4 specialized Sub-Agents (Task Creator, Updater, Status Changer, Mover), tested them, and saved the configuration for reuse.
                         </p>
                     </div>
                 </div>
@@ -4032,11 +4389,10 @@ Link: [clickup link]"</div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h4>🔥 Section 6: Secret Sauces</h4>
+                        <h4>🔥 Section 7: Secret Sauces</h4>
                         <p>
                             <strong>Key Takeaway:</strong> 10 pro tips including: CLAUDE.md file for persistent instructions, 
-                            "Explain First" trick for better results, screenshot-to-action, session continuation, /compact command, 
-                            and the ultimate secret — <strong>be specific!</strong> The more detail you give, the better results you get.
+                            "Explain First" trick for better results, screenshot-to-action, and the ultimate secret — <strong>be specific!</strong>
                         </p>
                     </div>
                 </div>
@@ -4044,11 +4400,10 @@ Link: [clickup link]"</div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h4>🎯 Section 7: When to Use Claude Code</h4>
+                        <h4>🎯 Section 8: When to Use Claude Code</h4>
                         <p>
                             <strong>Key Takeaway:</strong> Perfect for repetitive tasks, document creation, file organization, and connecting tools. 
-                            Be careful with sensitive data and always verify important decisions. The 80/20 rule: let Claude handle routine work 
-                            so you can focus on what truly needs human creativity and judgment.
+                            The 80/20 rule: let Claude handle routine work so you can focus on what truly needs human creativity.
                         </p>
                     </div>
                 </div>
